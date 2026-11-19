@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>약속 장소 플래너</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top"><h1>약속 장소 플래너</h1><div id="nav"></div></header>
+  <div id="banners"></div>
+  <main class="chat-layout">
+    <section class="panel">
+      <div id="messages" aria-live="polite"></div>
+      <form class="composer" id="form">
+        <input id="input" maxlength="500" autocomplete="off" placeholder="예) 잠실이랑 건대 사는 둘이 토요일 오후 2시에 데이트, 할 거 많은 곳으로">
+        <button id="send" type="submit">보내기</button>
+      </form>
+    </section>
+    <aside class="panel trace">
+      <h2>실행 과정</h2>
+      <div id="trace" class="meta">요청을 보내면 단계와 Tool 호출 이력이 여기에 표시돼요.</div>
+    </aside>
+  </main>
+  <script src="config.js"></script>
+  <script src="common.js"></script>
+  <script src="chat.js"></script>
+</body>
+</html>

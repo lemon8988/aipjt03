@@ -1,0 +1,66 @@
+{
+  "http": 200,
+  "shape": {
+    "status": "str",
+    "properties": {
+      "total": 15,
+      "bus": 10,
+      "subway": 1,
+      "busAndSubway": 4,
+      "landingURL": "str"
+    },
+    "routes": {
+      "_list_len": 15,
+      "_item": {
+        "properties": {
+          "type": "str",
+          "totalDistance": 5479,
+          "totalTime": 741,
+          "transfers": 0,
+          "fare": {
+            "value": 1550
+          }
+        },
+        "steps": {
+          "_list_len": 1,
+          "_item": {
+            "properties": {
+              "guidance": "str",
+              "type": "str",
+              "distance": 5300,
+              "time": 510,
+              "stops": {
+                "_list_len": 5,
+                "_item": {
+                  "name": "str"
+                }
+              },
+              "vehicles": {
+                "_list_len": 1,
+                "_item": {
+                  "name": "str",
+                  "type": "str"
+                }
+              }
+            },
+            "path": {
+              "points": {
+                "_list_len": 142,
+                "_item": {
+                  "_list_len": 2,
+                  "_item": 127.10022879
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "request_params": [
+    "start_x",
+    "start_y",
+    "end_x",
+    "end_y"
+  ]
+}

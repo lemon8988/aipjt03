@@ -1,0 +1,65 @@
+[
+  {
+    "verdict": "anomaly",
+    "basis": true,
+    "warning_count": 1,
+    "warnings": [
+      {
+        "code": "excess_replan",
+        "severity": "warn",
+        "message": "재계획 3회 (상한 3회 도달)",
+        "evidence": {
+          "replans": 3,
+          "limit": 3,
+          "changes": [
+            "반경 3000m→5000m, 후보 수 8→8",
+            "반경 5000m→8000m, 후보 수 8→8",
+            "반경 8000m→8000m, 후보 수 8→12"
+          ]
+        }
+      }
+    ],
+    "checks": {
+      "repeated_call": "ok",
+      "excess_replan": "warn",
+      "unplanned_call": "ok"
+    },
+    "stats": {
+      "tool_calls": 11,
+      "replans": 3,
+      "total_ms": 5945,
+      "event_count": 73
+    },
+    "diagnosis": {
+      "status": "done",
+      "text": "Agent는 재계획 상한에 도달하여 실행을 종료했습니다. `find_stn` Tool에서 수원과 춘천 간의 거리가 멀어 사용자가 제시한 조건(반경, 후보 수)을 만족하는 장소를 찾지 못했습니다. 사용자의 이동 시간 및 편차 제약 조건을 현실적으로 충족시키기 어려운 경우이므로, 사용자의 조건을 재확인하거나 완화해야 합니다."
+    },
+    "session_id": "b4181aa41d5a4e94a20af38541d6504f",
+    "run_index": 1,
+    "evaluated_at": "2026-11-19T15:56:21+00:00"
+  },
+  {
+    "verdict": "ok",
+    "basis": true,
+    "warning_count": 0,
+    "warnings": [],
+    "checks": {
+      "repeated_call": "ok",
+      "excess_replan": "ok",
+      "unplanned_call": "ok"
+    },
+    "stats": {
+      "tool_calls": 9,
+      "replans": 1,
+      "total_ms": 2020,
+      "event_count": 45
+    },
+    "diagnosis": {
+      "status": "skipped",
+      "text": null
+    },
+    "session_id": "b4181aa41d5a4e94a20af38541d6504f",
+    "run_index": 2,
+    "evaluated_at": "2026-11-19T15:56:26+00:00"
+  }
+]

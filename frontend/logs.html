@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>실행 로그 · 약속 장소 플래너</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top"><h1>약속 장소 플래너</h1><div id="nav"></div></header>
+  <div id="banners"></div>
+  <main>
+    <div class="toolbar"><button class="ghost" id="reload">새로고침</button><span class="meta">실행 로그는 조회·삭제만 가능하고 수정할 수 없어요.</span></div>
+    <div id="notice"></div>
+    <div class="split">
+      <section class="panel" id="sessions"></section>
+      <section class="panel" style="padding:12px" id="detail"><div class="empty">왼쪽에서 세션을 선택하세요.</div></section>
+    </div>
+  </main>
+  <script src="config.js"></script>
+  <script src="common.js"></script>
+  <script src="logs.js"></script>
+</body>
+</html>

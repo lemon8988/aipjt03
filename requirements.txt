@@ -1,0 +1,24 @@
+# 명세서 1.2 '필수 라이브러리' 버전. 이 버전들로 가상환경을 새로 만들어 자동 테스트 112개 통과를 확인했다.
+langgraph==1.2.10
+langchain==1.3.14
+langchain-openai==1.4.3
+langchain-core==1.6.0
+openai==2.54.0
+python-dotenv==1.2.3
+requests==2.34.2
+typing-extensions==4.16.0
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+pydantic==2.13.5
+
+# 테스트 (httpx: FastAPI TestClient)
+pytest>=9.0
+httpx>=0.28
+
+# 명세서의 필수 라이브러리 중 이 프로젝트가 사용하지 않는 것 (심화 F3022 RAG / F3023 캘린더를 선택하지 않음. 선택 시 추가):
+#   chromadb==1.5.9
+#   langchain-text-splitters==1.1.2
+#   google-api-python-client==2.201.0
+#   google-auth-oauthlib==1.5.0
+#   google-auth-httplib2==0.4.3
+#   langsmith==0.10.17   (langchain-core 가 의존성으로 설치할 수 있음. 코드에서는 직접 사용하지 않음)

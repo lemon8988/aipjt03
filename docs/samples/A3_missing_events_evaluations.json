@@ -1,0 +1,26 @@
+[
+  {
+    "verdict": "unknown",
+    "basis": false,
+    "warning_count": 0,
+    "warnings": [],
+    "checks": {
+      "repeated_call": "na",
+      "excess_replan": "na",
+      "unplanned_call": "na"
+    },
+    "stats": {
+      "tool_calls": 32,
+      "replans": 0,
+      "total_ms": 4883,
+      "event_count": 75
+    },
+    "diagnosis": {
+      "status": "skipped",
+      "text": null
+    },
+    "session_id": "d81f78920c1c472aa86b587a282f63e6",
+    "run_index": 1,
+    "evaluated_at": "2026-11-19T15:58:00+00:00"
+  }
+]

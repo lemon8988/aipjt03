@@ -1,0 +1,41 @@
+[
+  {
+    "verdict": "anomaly",
+    "basis": true,
+    "warning_count": 1,
+    "warnings": [
+      {
+        "code": "repeated_call",
+        "severity": "warn",
+        "message": "get_wx 가 같은 입력으로 2회 호출됨",
+        "evidence": {
+          "tool": "get_wx",
+          "args": {
+            "date": "2026-11-21",
+            "x": 127.084717,
+            "y": 37.526859
+          },
+          "count": 2
+        }
+      }
+    ],
+    "checks": {
+      "repeated_call": "warn",
+      "excess_replan": "ok",
+      "unplanned_call": "ok"
+    },
+    "stats": {
+      "tool_calls": 33,
+      "replans": 0,
+      "total_ms": 5686,
+      "event_count": 78
+    },
+    "diagnosis": {
+      "status": "done",
+      "text": "`get_wx` 툴이 동일한 입력으로 두 번 호출된 것은 메인 Agent의 계획 또는 실행 단계에서 불필요한 중복 작업이 발생했기 때문입니다. 이 중복 호출을 제거하도록 계획 로직을 수정해야 합니다."
+    },
+    "session_id": "ca01bac7a2534cbca338ce73e93db3ae",
+    "run_index": 1,
+    "evaluated_at": "2026-11-19T15:57:28+00:00"
+  }
+]

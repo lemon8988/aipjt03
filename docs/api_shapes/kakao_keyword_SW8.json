@@ -1,0 +1,35 @@
+{
+  "http": 200,
+  "shape": {
+    "documents": {
+      "_list_len": 7,
+      "_item": {
+        "address_name": "str",
+        "category_group_code": "str",
+        "category_group_name": "str",
+        "category_name": "str",
+        "distance": "str",
+        "id": "str",
+        "phone": "str",
+        "place_name": "str",
+        "place_url": "str",
+        "road_address_name": "str",
+        "x": "str",
+        "y": "str"
+      }
+    },
+    "meta": {
+      "is_end": true,
+      "pageable_count": 7,
+      "same_name": {
+        "keyword": "str",
+        "region": {
+          "_list_len": 0,
+          "_item": null
+        },
+        "selected_region": "str"
+      },
+      "total_count": 7
+    }
+  }
+}

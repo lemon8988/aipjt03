@@ -1,0 +1,36 @@
+{
+  "http": 200,
+  "shape": {
+    "latitude": 37.5,
+    "longitude": 127.125,
+    "generationtime_ms": 0.05507469177246094,
+    "utc_offset_seconds": 32400,
+    "timezone": "str",
+    "timezone_abbreviation": "str",
+    "elevation": 16.0,
+    "daily_units": {
+      "time": "str",
+      "precipitation_probability_max": "str",
+      "temperature_2m_max": "str",
+      "temperature_2m_min": "str"
+    },
+    "daily": {
+      "time": {
+        "_list_len": 1,
+        "_item": "str"
+      },
+      "precipitation_probability_max": {
+        "_list_len": 1,
+        "_item": 0
+      },
+      "temperature_2m_max": {
+        "_list_len": 1,
+        "_item": 4.0
+      },
+      "temperature_2m_min": {
+        "_list_len": 1,
+        "_item": -1.9
+      }
+    }
+  }
+}

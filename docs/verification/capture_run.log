@@ -1,0 +1,77 @@
+
+[S1] 제약을 한 번에 충족 + 처리 중 상태
+  📷 01_chat_initial.png
+  📷 03_chat_busy.png
+  📷 02_chat_S1_result.png
+  [S1/1] answer/ok 5.0s 재계획=0 호출={'geo_loc': 2, 'get_wx': 1, 'find_stn': 1, 'get_route': 16, 'find_spot': 32}
+  로그 이벤트 116
+[S6] 후속 요청(Memory) + 계획 저장·겹침
+  📷 09_chat_S6_followup.png
+  [S6/1] answer/ok 2.5s 재계획=0 호출={}
+  📷 12_chat_plan_saved_conflict.png
+[S5] Tool 이 필요 없는 요청
+  [S5/1] answer/chat 1.7s 재계획=0 호출={}
+  📷 08_chat_S5_no_tool.png
+  [S5/2] answer/chat 1.9s 재계획=0 호출={}
+[S7] 조건 부족 → 되묻기 → 답변
+  📷 10_chat_S7_missing.png
+  [S7/1] ask/ask 1.2s 재계획=0 호출={}
+  📷 10b_chat_S7_answered.png
+  [S7/2] answer/ok 4.8s 재계획=0 호출={'geo_loc': 2, 'get_wx': 1, 'find_stn': 1, 'get_route': 16, 'find_spot': 12}
+[S8] 우선순위 되묻기(선택 버튼)
+  📷 04_chat_ask_priority.png
+  [S8/1] ask/ask 1.0s 재계획=0 호출={}
+  [S8/2] answer/ok 3.4s 재계획=0 호출={'geo_loc': 2, 'get_wx': 1, 'find_stn': 1, 'get_route': 16, 'find_spot': 8}
+[S10] 없는 조건을 임의로 채우지 않는가
+  📷 11_chat_S10_no_invention.png
+  [S10/1] ask/ask 1.1s 재계획=0 호출={}
+[S2] 재계획 후 충족 (위치 모호 → 선택 → 재계획)
+  📷 05a_chat_S2_ambiguous.png
+  [S2/1] ask/ask 1.3s 재계획=0 호출={'geo_loc': 1}
+  📷 05b_chat_S2_replan.png
+  [S2/2] answer/ok 3.9s 재계획=1 호출={'geo_loc': 1, 'get_wx': 1, 'find_stn': 2, 'get_route': 16, 'find_spot': 12}
+  로그 이벤트 99
+[S3] 재계획 상한 도달 + 완화
+  📷 06_chat_S3_limit.png
+  [S3/1] ask/limit 6.0s 재계획=3 호출={'geo_loc': 2, 'get_wx': 1, 'find_stn': 3, 'get_route': 5}
+  📷 06b_chat_S3_relaxed.png
+  [S3/2] answer/ok 2.1s 재계획=1 호출={'get_route': 1, 'find_spot': 8}
+[계획 관리 화면]
+  📷 13_plans_list.png
+  📷 14_plans_edit.png
+  📷 15_plans_after_edit.png
+  📷 15b_plans_after_delete.png
+[실행 로그 화면]
+  📷 16_logs_list.png
+  📷 17_logs_detail_anomaly.png
+  📷 18_logs_detail_normal.png
+  📷 19_logs_after_delete.png
+[API 문서]
+  📷 20_api_docs.png
+
+[S4] Tool 하나가 실패 (get_route 3번에 1번 NO_ROUTE 주입)
+  📷 07_chat_S4_tool_failure.png
+  [S4/1] answer/ok 6.3s 재계획=0 호출={'geo_loc': 2, 'get_wx': 1, 'find_stn': 1, 'get_route': 12, 'find_spot': 12}
+
+[S9] 카카오 API 키 누락
+  📷 11b_chat_S9_no_api_key.png
+  [S9/1] error/error 1.2s 재계획=0 호출={'geo_loc': 1}
+
+[S11] 로깅 Agent 를 연결하지 않고 실행
+  📷 11c_chat_S11_no_logging_agent.png
+  [S11/1] answer/ok 5.0s 재계획=0 호출={'geo_loc': 2, 'get_wx': 1, 'find_stn': 1, 'get_route': 16, 'find_spot': 32}
+
+[A1] F3020 이상 주입 ANOMALY_INJECT=repeat_call: 같은 Tool 을 같은 입력으로 반복 호출
+  [A1/1] answer/ok 5.8s 재계획=0 호출={'geo_loc': 2, 'get_wx': 2, 'find_stn': 1, 'get_route': 16, 'find_spot': 12}
+  📷 21_logs_F3020_repeated_call.png
+
+[A2] F3020 이상 주입 ANOMALY_INJECT=unplanned_call: 계획에 없던 Tool 호출
+  [A2/1] answer/ok 5.1s 재계획=0 호출={'geo_loc': 2, 'get_wx': 1, 'find_stn': 1, 'get_route': 16, 'find_spot': 12}
+  📷 22_logs_F3020_unplanned_call.png
+
+[A3] F3020 이상 주입 ANOMALY_INJECT=missing_events: 근거 이벤트 없음 → 판정 불가
+  [A3/1] answer/ok 5.0s 재계획=0 호출={'geo_loc': 2, 'get_wx': 1, 'find_stn': 1, 'get_route': 16, 'find_spot': 12}
+  📷 23_logs_F3020_unknown.png
+
+기록 19건 저장: C:\Users\brian\Desktop\AI_pjt\docs\verification\records.json
+exit=0

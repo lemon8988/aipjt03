@@ -1,0 +1,43 @@
+[
+  {
+    "verdict": "anomaly",
+    "basis": true,
+    "warning_count": 1,
+    "warnings": [
+      {
+        "code": "unplanned_call",
+        "severity": "warn",
+        "message": "계획에 없던 Tool: get_wx×1",
+        "evidence": {
+          "tools": {
+            "get_wx": 1
+          },
+          "plan": [
+            "geo_loc",
+            "find_stn",
+            "get_route",
+            "find_spot"
+          ]
+        }
+      }
+    ],
+    "checks": {
+      "repeated_call": "ok",
+      "excess_replan": "ok",
+      "unplanned_call": "warn"
+    },
+    "stats": {
+      "tool_calls": 32,
+      "replans": 0,
+      "total_ms": 5023,
+      "event_count": 76
+    },
+    "diagnosis": {
+      "status": "done",
+      "text": "계획에 없던 `get_wx` Tool 호출은 `find_stn` Tool이 정상 응답했으므로 불필요한 호출이었습니다. `find_spot` Tool에서 일부 카테고리에 대해 `NO_RESULT` 응답이 있었으나, 다른 카테고리에서 결과를 반환했으므로 Agent의 판단이나 Tool의 기능 자체에 문제는 없어 보입니다."
+    },
+    "session_id": "01d33a499b7845b5a6e07e43985c3494",
+    "run_index": 1,
+    "evaluated_at": "2026-11-19T15:57:44+00:00"
+  }
+]

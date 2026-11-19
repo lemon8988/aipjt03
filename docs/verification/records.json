@@ -1,0 +1,2135 @@
+[
+  {
+    "scenario": "S1",
+    "turn": "1",
+    "request": "잠실이랑 건대 사는 둘이 토요일 오후 2시에 데이트, 할 거 많은 곳으로",
+    "elapsed_s": 5.0,
+    "type": "answer",
+    "status": "ok",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소로 건대입구역이 가장 적합합니다. 건대입구역은 잠실에서 13분, 건대에서 6분이 소요되어 최대 이동 시간 90분, 편차 30분 기준을 만족합니다. 또한, 음식점 667개, 카페 175개 등 할 거리가 많은 조건을 충족합니다. 잠실새내역은 잠실에서 2분, 건대에서 11분이 걸리며, 잠실역은 잠실에서 0분, 건대에서 9분이 걸립니다. 이동 시간은 조회 시점 기준이며, 날씨는 맑을 것으로 예상됩니다.",
+    "ask": null,
+    "recommendations": [
+      {
+        "rank": 1,
+        "station": "건대입구역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 13,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 6,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 13,
+        "gap": 7,
+        "score": 861.0,
+        "spot_counts": {
+          "음식점": 667,
+          "카페": 175,
+          "문화시설": 14,
+          "관광명소": 5
+        }
+      },
+      {
+        "rank": 2,
+        "station": "잠실새내역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 2,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 11,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 11,
+        "gap": 9,
+        "score": 571.0,
+        "spot_counts": {
+          "음식점": 478,
+          "카페": 89,
+          "문화시설": 4,
+          "관광명소": 0
+        }
+      },
+      {
+        "rank": 3,
+        "station": "잠실역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 0,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 9,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 9,
+        "gap": 9,
+        "score": 527.0,
+        "spot_counts": {
+          "음식점": 373,
+          "카페": 131,
+          "문화시설": 18,
+          "관광명소": 5
+        }
+      }
+    ],
+    "excluded": [],
+    "criteria": {
+      "t_max": 90,
+      "g_max": 30,
+      "prio": "things",
+      "prio_label": "할 거 많게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "t_max",
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": 0.5,
+      "tmin": -5.4,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "장소 수는 평점이 아니라 반경 500m 안의 검색 건수 기준이에요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 90분, 편차 30분)."
+    ],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {
+      "geo_loc": 2,
+      "get_wx": 1,
+      "find_stn": 1,
+      "get_route": 16,
+      "find_spot": 32
+    },
+    "tool_failures": {
+      "find_spot:NO_RESULT": 5
+    },
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "new_meet",
+        "reason": "사용자가 약속 장소 추천을 요청하며 참여자들의 출발 위치, 날짜, 시간, 선호도(할 거 많은 곳)를 명시했습니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "d08111c9cb6b4491b004aab98465f121",
+    "screenshots": [
+      "02_chat_S1_result.png"
+    ]
+  },
+  {
+    "scenario": "S6",
+    "turn": "1",
+    "request": "같은 조건에서 음식점 많은 쪽으로",
+    "elapsed_s": 2.5,
+    "type": "answer",
+    "status": "ok",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소로 건대입구역을 추천합니다. 건대입구역은 잠실에서 13분, 건대에서 6분이 소요되어 두 출발지 모두에게 이동이 편리하며, 음식점 수가 667개로 가장 많아 '음식점 많게'라는 우선순위 조건에 가장 잘 부합합니다. 최대 이동 시간 13분, 이동 시간 편차 7분으로 다른 후보지보다 이동 시간 조건도 만족합니다. 잠실새내역은 잠실에서 2분, 건대에서 11분이 소요되며 음식점 수는 478개입니다. 구의역은 잠실에서 6분, 건대에서 3분이 소요되고 음식점 수는 392개입니다. 날씨는 맑을 것으로 예상됩니다.",
+    "ask": null,
+    "recommendations": [
+      {
+        "rank": 1,
+        "station": "건대입구역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 13,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 6,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 13,
+        "gap": 7,
+        "score": 667.0,
+        "spot_counts": {
+          "음식점": 667
+        }
+      },
+      {
+        "rank": 2,
+        "station": "잠실새내역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 2,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 11,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 11,
+        "gap": 9,
+        "score": 478.0,
+        "spot_counts": {
+          "음식점": 478
+        }
+      },
+      {
+        "rank": 3,
+        "station": "구의역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 6,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 3,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 6,
+        "gap": 3,
+        "score": 392.0,
+        "spot_counts": {
+          "음식점": 392
+        }
+      }
+    ],
+    "excluded": [],
+    "criteria": {
+      "t_max": 90,
+      "g_max": 30,
+      "prio": "food",
+      "prio_label": "음식점 많게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "t_max",
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": 0.5,
+      "tmin": -5.4,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "장소 수는 평점이 아니라 반경 500m 안의 검색 건수 기준이에요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 90분, 편차 30분)."
+    ],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {},
+    "tool_failures": {},
+    "cache_hits": 26,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "edit_cond",
+        "reason": "사용자가 이전 약속 조건에서 '음식점 많은 쪽으로'라는 우선순위 변경을 요청했기 때문입니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "d08111c9cb6b4491b004aab98465f121",
+    "screenshots": [
+      "09_chat_S6_followup.png"
+    ]
+  },
+  {
+    "scenario": "S5",
+    "turn": "1",
+    "request": "안녕",
+    "elapsed_s": 1.7,
+    "type": "answer",
+    "status": "chat",
+    "error_code": null,
+    "answer": "안녕하세요! 약속 장소 플래너입니다. 참여자들의 위치와 만날 날짜, 시작 시각을 알려주시면 이동 부담이 적은 만남 장소를 추천해 드릴게요.",
+    "ask": null,
+    "recommendations": [],
+    "excluded": [],
+    "criteria": null,
+    "weather": null,
+    "notes": [],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {},
+    "tool_failures": {},
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "chat",
+        "reason": "사용자가 인사말을 건네고 있습니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "cd14149f01db4c18b14d8f22fe5651fd",
+    "screenshots": [
+      "08_chat_S5_no_tool.png"
+    ]
+  },
+  {
+    "scenario": "S5",
+    "turn": "2",
+    "request": "사용법 알려줘",
+    "elapsed_s": 1.9,
+    "type": "answer",
+    "status": "chat",
+    "error_code": null,
+    "answer": "약속 장소 플래너예요. 참여자 2~4명의 위치와 날짜·시작 시각을 알려 주시면 이동 부담이 적은 만남 역과 주변 장소를 추천해요. 예) \"잠실이랑 건대 사는 둘이 토요일 오후 2시에 데이트, 할 거 많은 곳으로\"",
+    "ask": null,
+    "recommendations": [],
+    "excluded": [],
+    "criteria": null,
+    "weather": null,
+    "notes": [],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {},
+    "tool_failures": {},
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "chat",
+        "reason": "사용자가 약속 장소 추천 기능이 아닌, 서비스의 사용법에 대해 질문했기 때문입니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "cd14149f01db4c18b14d8f22fe5651fd",
+    "screenshots": [
+      "08_chat_S5_no_tool.png"
+    ]
+  },
+  {
+    "scenario": "S7",
+    "turn": "1",
+    "request": "송도랑 마석에서 모일 장소 추천해줘",
+    "elapsed_s": 1.2,
+    "type": "ask",
+    "status": "ask",
+    "error_code": null,
+    "answer": "날짜, 시작 시각을(를) 알려 주세요. 예) \"잠실이랑 건대, 토요일 오후 2시\"",
+    "ask": {
+      "kind": "missing",
+      "choices": []
+    },
+    "recommendations": [],
+    "excluded": [],
+    "criteria": null,
+    "weather": null,
+    "notes": [],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {},
+    "tool_failures": {},
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "new_meet",
+        "reason": "사용자가 '송도', '마석' 두 개의 출발 위치를 언급하며 만날 장소 추천을 요청했기 때문입니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "ca5d6eb389c8442eb2d7b63d57c56078",
+    "screenshots": [
+      "10_chat_S7_missing.png"
+    ]
+  },
+  {
+    "scenario": "S7",
+    "turn": "2",
+    "request": "토요일 3시, 이동 부담 적게",
+    "elapsed_s": 4.8,
+    "type": "answer",
+    "status": "ok",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소로 용산역이 가장 적합합니다. 용산역은 송도에서 65분, 마석에서 59분으로 두 출발지 간 이동 시간 편차가 6분으로 가장 적어 이동 부담이 적습니다. 신용산역은 송도에서 74분, 마석에서 57분으로 편차가 17분이며, 남영역은 송도에서 71분, 마석에서 61분으로 편차가 10분입니다. 날씨는 맑을 것으로 예상됩니다. 버티고개역은 이동 시간 편차가 기준을 초과하여 제외되었습니다.",
+    "ask": null,
+    "recommendations": [
+      {
+        "rank": 1,
+        "station": "용산역",
+        "times": [
+          {
+            "name": "송도",
+            "min": 65,
+            "transfers": 2,
+            "walk": false
+          },
+          {
+            "name": "마석",
+            "min": 59,
+            "transfers": 1,
+            "walk": false
+          }
+        ],
+        "max_t": 65,
+        "gap": 6,
+        "score": -124.0,
+        "spot_counts": {
+          "음식점": 434,
+          "카페": 126,
+          "문화시설": 11,
+          "관광명소": 0
+        }
+      },
+      {
+        "rank": 2,
+        "station": "신용산역",
+        "times": [
+          {
+            "name": "송도",
+            "min": 74,
+            "transfers": 2,
+            "walk": false
+          },
+          {
+            "name": "마석",
+            "min": 57,
+            "transfers": 2,
+            "walk": false
+          }
+        ],
+        "max_t": 74,
+        "gap": 17,
+        "score": -131.0,
+        "spot_counts": {
+          "음식점": 512,
+          "카페": 147,
+          "문화시설": 16,
+          "관광명소": 1
+        }
+      },
+      {
+        "rank": 3,
+        "station": "남영역",
+        "times": [
+          {
+            "name": "송도",
+            "min": 71,
+            "transfers": 3,
+            "walk": false
+          },
+          {
+            "name": "마석",
+            "min": 61,
+            "transfers": 1,
+            "walk": false
+          }
+        ],
+        "max_t": 71,
+        "gap": 10,
+        "score": -132.0,
+        "spot_counts": {
+          "음식점": 358,
+          "카페": 94,
+          "문화시설": 6,
+          "관광명소": 1
+        }
+      }
+    ],
+    "excluded": [
+      {
+        "name": "버티고개역",
+        "reason": "이동시간 편차 32분이 상한 30분 초과"
+      }
+    ],
+    "criteria": {
+      "t_max": 90,
+      "g_max": 30,
+      "prio": "travel",
+      "prio_label": "이동 부담 적게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "t_max",
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": 0.0,
+      "tmin": -6.0,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 90분, 편차 30분)."
+    ],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {
+      "geo_loc": 2,
+      "get_wx": 1,
+      "find_stn": 1,
+      "get_route": 16,
+      "find_spot": 12
+    },
+    "tool_failures": {
+      "find_spot:NO_RESULT": 1
+    },
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "edit_cond",
+        "reason": "사용자가 '토요일 3시'와 '이동 부담 적게'라는 조건을 추가하여 직전 약속 추천 조건을 수정했습니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "ca5d6eb389c8442eb2d7b63d57c56078",
+    "screenshots": [
+      "10b_chat_S7_answered.png"
+    ]
+  },
+  {
+    "scenario": "S8",
+    "turn": "1",
+    "request": "잠실이랑 건대 사는 둘이 토요일 오후 2시에 데이트",
+    "elapsed_s": 1.0,
+    "type": "ask",
+    "status": "ask",
+    "error_code": null,
+    "answer": "어떤 점을 가장 중요하게 볼까요?",
+    "ask": {
+      "kind": "priority",
+      "choices": [
+        "이동 부담 적게",
+        "할 거 많게",
+        "음식점 많게"
+      ]
+    },
+    "recommendations": [],
+    "excluded": [],
+    "criteria": null,
+    "weather": null,
+    "notes": [],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {},
+    "tool_failures": {},
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "new_meet",
+        "reason": "사용자가 약속 장소 추천을 요청하며 출발 위치, 날짜, 시간 정보를 제공했습니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "8e47ccb512c143da997af1a742ed7dad",
+    "screenshots": [
+      "04_chat_ask_priority.png"
+    ]
+  },
+  {
+    "scenario": "S8",
+    "turn": "2",
+    "request": "(버튼) 음식점 많게",
+    "elapsed_s": 3.4,
+    "type": "answer",
+    "status": "ok",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소로 건대입구역을 추천합니다. 건대입구역은 잠실에서 13분, 건대에서 6분이 소요되어 두 출발지 모두에게 이동이 편리하며, 음식점 수가 667개로 가장 많아 '음식점 많게'라는 우선순위 조건에 가장 잘 부합합니다. 최대 이동 시간 13분, 이동 시간 편차 7분으로 다른 후보지보다 이동 시간 조건도 만족합니다. 잠실새내역은 잠실에서 2분, 건대에서 11분이 소요되며 음식점 수는 478개입니다. 구의역은 잠실에서 6분, 건대에서 3분이 소요되고 음식점 수는 392개입니다. 날씨는 맑을 것으로 예상됩니다.",
+    "ask": null,
+    "recommendations": [
+      {
+        "rank": 1,
+        "station": "건대입구역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 13,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 6,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 13,
+        "gap": 7,
+        "score": 667.0,
+        "spot_counts": {
+          "음식점": 667
+        }
+      },
+      {
+        "rank": 2,
+        "station": "잠실새내역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 2,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 11,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 11,
+        "gap": 9,
+        "score": 478.0,
+        "spot_counts": {
+          "음식점": 478
+        }
+      },
+      {
+        "rank": 3,
+        "station": "구의역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 6,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 3,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 6,
+        "gap": 3,
+        "score": 392.0,
+        "spot_counts": {
+          "음식점": 392
+        }
+      }
+    ],
+    "excluded": [],
+    "criteria": {
+      "t_max": 90,
+      "g_max": 30,
+      "prio": "food",
+      "prio_label": "음식점 많게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "t_max",
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": 0.5,
+      "tmin": -5.4,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "장소 수는 평점이 아니라 반경 500m 안의 검색 건수 기준이에요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 90분, 편차 30분)."
+    ],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {
+      "geo_loc": 2,
+      "get_wx": 1,
+      "find_stn": 1,
+      "get_route": 16,
+      "find_spot": 8
+    },
+    "tool_failures": {},
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "8e47ccb512c143da997af1a742ed7dad",
+    "screenshots": []
+  },
+  {
+    "scenario": "S10",
+    "turn": "1",
+    "request": "잠실에서 7시 전에 끝나야 해",
+    "elapsed_s": 1.1,
+    "type": "ask",
+    "status": "ask",
+    "error_code": null,
+    "answer": "날짜, 시작 시각, 참여자 위치(2곳 이상)을(를) 알려 주세요. 예) \"잠실이랑 건대, 토요일 오후 2시\"",
+    "ask": {
+      "kind": "missing",
+      "choices": []
+    },
+    "recommendations": [],
+    "excluded": [],
+    "criteria": null,
+    "weather": null,
+    "notes": [],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {},
+    "tool_failures": {},
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "edit_cond",
+        "reason": "사용자가 약속 종료 시간을 명시하여 기존 조건 일부를 변경함"
+      }
+    ],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "d7e823564c1f4af3a4a30a6ccc07e335",
+    "screenshots": [
+      "11_chat_S10_no_invention.png"
+    ]
+  },
+  {
+    "scenario": "S2",
+    "turn": "1",
+    "request": "중앙이랑 건대 사는 둘이 토요일 오후 2시에 만날래, 이동 적게",
+    "elapsed_s": 1.3,
+    "type": "ask",
+    "status": "ask",
+    "error_code": null,
+    "answer": "'중앙' 위치가 여러 곳이에요. 어느 곳인가요?",
+    "ask": {
+      "kind": "disambiguate",
+      "choices": [
+        "중앙역 (경기 안산시 단원구 중앙대로 918)",
+        "중앙역 (부산 중구 중앙대로 지하 83)"
+      ]
+    },
+    "recommendations": [],
+    "excluded": [],
+    "criteria": null,
+    "weather": null,
+    "notes": [],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {
+      "geo_loc": 1
+    },
+    "tool_failures": {
+      "geo_loc:AMBIGUOUS": 1
+    },
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "new_meet",
+        "reason": "사용자가 약속 장소 추천을 요청하며 만날 사람들의 출발 위치, 날짜, 시간, 그리고 선호하는 조건(이동 적게)을 명시했습니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "711c3d850412451fbae73efe74990d74",
+    "screenshots": [
+      "05a_chat_S2_ambiguous.png"
+    ]
+  },
+  {
+    "scenario": "S2",
+    "turn": "2",
+    "request": "(버튼) 중앙역 (경기 안산시 단원구 중앙대로 918)",
+    "elapsed_s": 3.9,
+    "type": "answer",
+    "status": "ok",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소로 대공원역, 과천역, 정부과천청사역을 추천합니다. 세 곳 모두 '이동 부담 적게'라는 기준에 따라 참여자들의 최대 이동 시간이 90분 이내, 이동 시간 편차는 30분 이내로 설정했을 때 고려된 역입니다. 특히 대공원역은 중앙 출발 기준 33분, 건대 출발 기준 40분으로 이동 시간이 가장 짧고 편차도 7분으로 적어 이동 부담이 가장 적을 것으로 예상됩니다. 과천역은 중앙 출발 31분, 건대 출발 42분으로 편차가 11분이며, 정부과천청사역은 중앙 출발 29분, 건대 출발 44분으로 편차가 15분입니다. 안양역과 범계역은 이동 시간 편차가 기준을 초과하여 제외되었습니다. 날씨는 맑을 것으로 예상됩니다.",
+    "ask": null,
+    "recommendations": [
+      {
+        "rank": 1,
+        "station": "대공원역",
+        "times": [
+          {
+            "name": "중앙",
+            "min": 33,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 40,
+            "transfers": 1,
+            "walk": false
+          }
+        ],
+        "max_t": 40,
+        "gap": 7,
+        "score": -73.0,
+        "spot_counts": {
+          "음식점": 10,
+          "카페": 1,
+          "문화시설": 12,
+          "관광명소": 3
+        }
+      },
+      {
+        "rank": 2,
+        "station": "과천역",
+        "times": [
+          {
+            "name": "중앙",
+            "min": 31,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 42,
+            "transfers": 1,
+            "walk": false
+          }
+        ],
+        "max_t": 42,
+        "gap": 11,
+        "score": -73.0,
+        "spot_counts": {
+          "음식점": 20,
+          "카페": 9,
+          "문화시설": 0,
+          "관광명소": 0
+        }
+      },
+      {
+        "rank": 3,
+        "station": "정부과천청사역",
+        "times": [
+          {
+            "name": "중앙",
+            "min": 29,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 44,
+            "transfers": 1,
+            "walk": false
+          }
+        ],
+        "max_t": 44,
+        "gap": 15,
+        "score": -73.0,
+        "spot_counts": {
+          "음식점": 215,
+          "카페": 56,
+          "문화시설": 5,
+          "관광명소": 1
+        }
+      }
+    ],
+    "excluded": [
+      {
+        "name": "안양역",
+        "reason": "이동시간 편차 36분이 상한 30분 초과"
+      },
+      {
+        "name": "범계역",
+        "reason": "이동시간 편차 31분이 상한 30분 초과"
+      }
+    ],
+    "criteria": {
+      "t_max": 90,
+      "g_max": 30,
+      "prio": "travel",
+      "prio_label": "이동 부담 적게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "t_max",
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": -1.2,
+      "tmin": -8.6,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 90분, 편차 30분).",
+      "충족 후보가 없어 검색 범위를 넓혀 1회 재계획했어요."
+    ],
+    "replans": 1,
+    "near_miss": null,
+    "tool_calls": {
+      "geo_loc": 1,
+      "get_wx": 1,
+      "find_stn": 2,
+      "get_route": 16,
+      "find_spot": 12
+    },
+    "tool_failures": {
+      "find_stn:NO_RESULT": 1,
+      "find_spot:NO_RESULT": 2
+    },
+    "cache_hits": 1,
+    "replan_events": [
+      "반경 3000m→5000m, 후보 수 8→8"
+    ],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "replan",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "711c3d850412451fbae73efe74990d74",
+    "screenshots": [
+      "05b_chat_S2_replan.png"
+    ]
+  },
+  {
+    "scenario": "S3",
+    "turn": "1",
+    "request": "수원이랑 춘천 사는 둘이 토요일 오후 2시에 만나고 싶어, 이동 적게",
+    "elapsed_s": 6.0,
+    "type": "ask",
+    "status": "limit",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소 추천 결과, 이동 부담을 줄이는 조건(최대 이동시간 90분, 편차 30분)을 만족하는 역이 없었습니다. 양수역이 춘천 출발 기준 94분으로 최대 이동시간을 4분 초과하여 가장 근접했으나, 기준을 충족하지 못했습니다. 양수역 외에도 운길산역, 신원역, 국수역은 춘천 출발 시 90분을 초과하는 이동 시간이 소요되어 제외되었습니다. 이동 시간은 조회 시점 기준이며, 약속 시각의 실제 운행과 다를 수 있습니다. 충족 후보가 없어 검색 범위를 넓혀 3회 재계획하였으나 결과가 동일했습니다.",
+    "ask": {
+      "kind": "relax",
+      "choices": [
+        "최대 이동시간 120분으로 완화",
+        "편차 상한 45분으로 완화"
+      ]
+    },
+    "recommendations": [],
+    "excluded": [
+      {
+        "name": "양수역",
+        "reason": "춘천의 이동시간 94분이 상한 90분 초과"
+      },
+      {
+        "name": "운길산역",
+        "reason": "수원의 이동시간 96분이 상한 90분 초과"
+      },
+      {
+        "name": "신원역",
+        "reason": "춘천의 이동시간 98분이 상한 90분 초과"
+      },
+      {
+        "name": "국수역",
+        "reason": "춘천의 이동시간 102분이 상한 90분 초과"
+      }
+    ],
+    "criteria": {
+      "t_max": 90,
+      "g_max": 30,
+      "prio": "travel",
+      "prio_label": "이동 부담 적게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "t_max",
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": -0.8,
+      "tmin": -9.2,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 90분, 편차 30분).",
+      "충족 후보가 없어 검색 범위를 넓혀 3회 재계획했어요."
+    ],
+    "replans": 3,
+    "near_miss": {
+      "name": "양수역",
+      "excess": 4,
+      "detail": "최소 94분 이상"
+    },
+    "tool_calls": {
+      "geo_loc": 2,
+      "get_wx": 1,
+      "find_stn": 3,
+      "get_route": 5
+    },
+    "tool_failures": {
+      "find_stn:NO_RESULT": 1
+    },
+    "cache_hits": 12,
+    "replan_events": [
+      "반경 3000m→5000m, 후보 수 8→8",
+      "반경 5000m→8000m, 후보 수 8→8",
+      "반경 8000m→8000m, 후보 수 8→12"
+    ],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "replan",
+      "plan",
+      "execute",
+      "judge",
+      "replan",
+      "plan",
+      "execute",
+      "judge",
+      "replan",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "new_meet",
+        "reason": "사용자가 약속 장소 추천을 요청하며 여러 조건을 제시했기 때문입니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "anomaly",
+      "warnings": [
+        "재계획 3회 (상한 3회 도달)"
+      ]
+    },
+    "session_id": "b4181aa41d5a4e94a20af38541d6504f",
+    "screenshots": [
+      "06_chat_S3_limit.png"
+    ]
+  },
+  {
+    "scenario": "S3",
+    "turn": "2",
+    "request": "(버튼) 최대 이동시간 120분으로 완화",
+    "elapsed_s": 2.1,
+    "type": "answer",
+    "status": "ok",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소로 운길산역이 가장 적합합니다. 수원과 춘천 출발 시 두 분의 최대 이동 시간은 각각 96분, 90분으로 이동 부담이 적으며, 두 분 간의 이동 시간 차이도 6분으로 적습니다. 양수역도 고려할 수 있으나, 운길산역보다 이동 시간 및 시간 차이가 약간 더 큽니다. 날씨는 맑고 기온은 낮을 것으로 예상됩니다.",
+    "ask": null,
+    "recommendations": [
+      {
+        "rank": 1,
+        "station": "운길산역",
+        "times": [
+          {
+            "name": "수원",
+            "min": 96,
+            "transfers": 3,
+            "walk": false
+          },
+          {
+            "name": "춘천",
+            "min": 90,
+            "transfers": 2,
+            "walk": false
+          }
+        ],
+        "max_t": 96,
+        "gap": 6,
+        "score": -186.0,
+        "spot_counts": {
+          "음식점": 9,
+          "카페": 3,
+          "문화시설": 0,
+          "관광명소": 2
+        }
+      },
+      {
+        "rank": 2,
+        "station": "양수역",
+        "times": [
+          {
+            "name": "수원",
+            "min": 99,
+            "transfers": 3,
+            "walk": false
+          },
+          {
+            "name": "춘천",
+            "min": 94,
+            "transfers": 3,
+            "walk": false
+          }
+        ],
+        "max_t": 99,
+        "gap": 5,
+        "score": -193.0,
+        "spot_counts": {
+          "음식점": 27,
+          "카페": 7,
+          "문화시설": 0,
+          "관광명소": 0
+        }
+      }
+    ],
+    "excluded": [],
+    "criteria": {
+      "t_max": 120,
+      "g_max": 30,
+      "prio": "travel",
+      "prio_label": "이동 부담 적게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": -0.8,
+      "tmin": -9.2,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 120분, 편차 30분).",
+      "충족 후보가 없어 검색 범위를 넓혀 1회 재계획했어요."
+    ],
+    "replans": 1,
+    "near_miss": null,
+    "tool_calls": {
+      "get_route": 1,
+      "find_spot": 8
+    },
+    "tool_failures": {
+      "find_spot:NO_RESULT": 3
+    },
+    "cache_hits": 7,
+    "replan_events": [
+      "반경 3000m→5000m, 후보 수 8→8"
+    ],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "replan",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "b4181aa41d5a4e94a20af38541d6504f",
+    "screenshots": [
+      "06b_chat_S3_relaxed.png"
+    ]
+  },
+  {
+    "scenario": "S4",
+    "turn": "1",
+    "request": "잠실이랑 건대 사는 둘이 토요일 오후 2시에 만날래, 이동 부담 적게",
+    "elapsed_s": 6.3,
+    "type": "answer",
+    "status": "ok",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소로 강변역이 가장 적합합니다. 강변역은 잠실까지 5분, 건대까지 4분이 소요되어 이동 부담이 적으며, 이동 시간 편차도 1분으로 매우 짧습니다. 구의역은 잠실까지 6분, 건대까지 3분이 걸리지만 이동 시간 편차가 3분으로 강변역보다 큽니다. 잠실나루역은 잠실까지 2분, 건대까지 7분이 걸리지만 이동 시간 편차가 5분으로 가장 큽니다. 건대입구역, 자양역, 잠실새내역, 종합운동장역은 경로를 찾지 못해 제외되었습니다. 날씨는 맑을 것으로 예상됩니다.",
+    "ask": null,
+    "recommendations": [
+      {
+        "rank": 1,
+        "station": "강변역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 5,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 4,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 5,
+        "gap": 1,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 122,
+          "카페": 36,
+          "문화시설": 2,
+          "관광명소": 0
+        }
+      },
+      {
+        "rank": 2,
+        "station": "구의역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 6,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 3,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 6,
+        "gap": 3,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 392,
+          "카페": 62,
+          "문화시설": 4,
+          "관광명소": 1
+        }
+      },
+      {
+        "rank": 3,
+        "station": "잠실나루역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 2,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 7,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 7,
+        "gap": 5,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 152,
+          "카페": 40,
+          "문화시설": 0,
+          "관광명소": 0
+        }
+      }
+    ],
+    "excluded": [
+      {
+        "name": "건대입구역",
+        "reason": "경로를 찾지 못해 판단하지 않음 (NO_ROUTE)"
+      },
+      {
+        "name": "자양역",
+        "reason": "경로를 찾지 못해 판단하지 않음 (NO_ROUTE)"
+      },
+      {
+        "name": "잠실새내역",
+        "reason": "경로를 찾지 못해 판단하지 않음 (NO_ROUTE)"
+      },
+      {
+        "name": "종합운동장역",
+        "reason": "경로를 찾지 못해 판단하지 않음 (NO_ROUTE)"
+      }
+    ],
+    "criteria": {
+      "t_max": 90,
+      "g_max": 30,
+      "prio": "travel",
+      "prio_label": "이동 부담 적게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "t_max",
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": 0.5,
+      "tmin": -5.4,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 90분, 편차 30분)."
+    ],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {
+      "geo_loc": 2,
+      "get_wx": 1,
+      "find_stn": 1,
+      "get_route": 12,
+      "find_spot": 12
+    },
+    "tool_failures": {
+      "get_route:NO_ROUTE": 4,
+      "find_spot:NO_RESULT": 3
+    },
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "new_meet",
+        "reason": "사용자가 약속 장소 추천을 요청하며 출발 위치, 날짜, 시간, 선호도를 명시했습니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "6cfe3137ee4643f88c16bce0a88754be",
+    "screenshots": [
+      "07_chat_S4_tool_failure.png"
+    ]
+  },
+  {
+    "scenario": "S9",
+    "turn": "1",
+    "request": "잠실이랑 건대 사는 둘이 토요일 오후 2시에 데이트, 할 거 많은 곳으로",
+    "elapsed_s": 1.2,
+    "type": "error",
+    "status": "error",
+    "error_code": "NO_KEY",
+    "answer": "카카오 API 키가 설정되지 않았거나 유효하지 않아요. backend 의 .env 에서 KAKAO_REST_KEY 와 서비스 활성화를 확인해 주세요.",
+    "ask": null,
+    "recommendations": [],
+    "excluded": [],
+    "criteria": null,
+    "weather": null,
+    "notes": [],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {
+      "geo_loc": 1
+    },
+    "tool_failures": {
+      "geo_loc:NO_KEY": 1
+    },
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "new_meet",
+        "reason": "사용자가 약속 장소 추천을 요청하며 참여자들의 출발 위치, 날짜, 시간, 선호도(할 거 많은 곳)를 명시했습니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "ok",
+      "warnings": []
+    },
+    "session_id": "abc9703f25154d2187cffa607f3726c4",
+    "screenshots": [
+      "11b_chat_S9_no_api_key.png"
+    ]
+  },
+  {
+    "scenario": "S11",
+    "turn": "1",
+    "request": "잠실이랑 건대 사는 둘이 토요일 오후 2시에 데이트, 할 거 많은 곳으로",
+    "elapsed_s": 5.0,
+    "type": "answer",
+    "status": "ok",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소로 건대입구역이 가장 적합합니다. 건대입구역은 잠실에서 13분, 건대에서 6분이 소요되어 최대 이동 시간 90분, 편차 30분 기준을 만족합니다. 또한, 음식점 667개, 카페 175개 등 할 거리가 많은 조건을 충족합니다. 잠실새내역은 잠실에서 2분, 건대에서 11분이 걸리며, 잠실역은 잠실에서 0분, 건대에서 9분이 걸립니다. 이동 시간은 조회 시점 기준이며, 날씨는 맑을 것으로 예상됩니다.",
+    "ask": null,
+    "recommendations": [
+      {
+        "rank": 1,
+        "station": "건대입구역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 13,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 6,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 13,
+        "gap": 7,
+        "score": 861.0,
+        "spot_counts": {
+          "음식점": 667,
+          "카페": 175,
+          "문화시설": 14,
+          "관광명소": 5
+        }
+      },
+      {
+        "rank": 2,
+        "station": "잠실새내역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 2,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 11,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 11,
+        "gap": 9,
+        "score": 571.0,
+        "spot_counts": {
+          "음식점": 478,
+          "카페": 89,
+          "문화시설": 4,
+          "관광명소": 0
+        }
+      },
+      {
+        "rank": 3,
+        "station": "잠실역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 0,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 9,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 9,
+        "gap": 9,
+        "score": 527.0,
+        "spot_counts": {
+          "음식점": 373,
+          "카페": 131,
+          "문화시설": 18,
+          "관광명소": 5
+        }
+      }
+    ],
+    "excluded": [],
+    "criteria": {
+      "t_max": 90,
+      "g_max": 30,
+      "prio": "things",
+      "prio_label": "할 거 많게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "t_max",
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": 0.5,
+      "tmin": -5.4,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "장소 수는 평점이 아니라 반경 500m 안의 검색 건수 기준이에요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 90분, 편차 30분)."
+    ],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {
+      "geo_loc": 2,
+      "get_wx": 1,
+      "find_stn": 1,
+      "get_route": 16,
+      "find_spot": 32
+    },
+    "tool_failures": {
+      "find_spot:NO_RESULT": 5
+    },
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "new_meet",
+        "reason": "사용자가 약속 장소 추천을 요청하며 참여자들의 출발 위치, 날짜, 시간, 선호도(할 거 많은 곳)를 명시했습니다."
+      }
+    ],
+    "evaluation": null,
+    "session_id": "67152885d5ed4cf2a6d0b23dba352f88",
+    "screenshots": [
+      "11c_chat_S11_no_logging_agent.png"
+    ],
+    "logs_after": [],
+    "health": {
+      "status": "ok",
+      "kakao_key": true,
+      "llm_key": true,
+      "route_provider": "kakao",
+      "logging_agent": false
+    }
+  },
+  {
+    "scenario": "A1",
+    "turn": "1",
+    "request": "잠실이랑 건대 사는 둘이 토요일 오후 2시에 만날래, 이동 부담 적게",
+    "elapsed_s": 5.8,
+    "type": "answer",
+    "status": "ok",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소로 강변역, 구의역, 잠실나루역을 추천합니다. 세 역 모두 이동 부담을 줄이는 것을 최우선으로 고려했을 때 이동 시간이 짧고 편차가 적어 좋은 평가를 받았습니다. 특히 강변역은 잠실까지 5분, 건대까지 4분이 소요되어 이동 부담이 가장 적습니다. 구의역은 건대까지 3분, 잠실나루역은 잠실까지 2분이면 도착 가능합니다. 날씨는 맑을 것으로 예상되며, 추천된 역들은 모두 음식점과 카페가 많아 약속 장소로 적합합니다.",
+    "ask": null,
+    "recommendations": [
+      {
+        "rank": 1,
+        "station": "강변역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 5,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 4,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 5,
+        "gap": 1,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 122,
+          "카페": 36,
+          "문화시설": 2,
+          "관광명소": 0
+        }
+      },
+      {
+        "rank": 2,
+        "station": "구의역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 6,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 3,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 6,
+        "gap": 3,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 392,
+          "카페": 62,
+          "문화시설": 4,
+          "관광명소": 1
+        }
+      },
+      {
+        "rank": 3,
+        "station": "잠실나루역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 2,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 7,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 7,
+        "gap": 5,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 152,
+          "카페": 40,
+          "문화시설": 0,
+          "관광명소": 0
+        }
+      }
+    ],
+    "excluded": [],
+    "criteria": {
+      "t_max": 90,
+      "g_max": 30,
+      "prio": "travel",
+      "prio_label": "이동 부담 적게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "t_max",
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": 0.5,
+      "tmin": -5.4,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 90분, 편차 30분)."
+    ],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {
+      "geo_loc": 2,
+      "get_wx": 2,
+      "find_stn": 1,
+      "get_route": 16,
+      "find_spot": 12
+    },
+    "tool_failures": {
+      "find_spot:NO_RESULT": 3
+    },
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "new_meet",
+        "reason": "사용자가 약속 장소 추천을 요청하며 출발 위치, 날짜, 시간, 선호도를 명시했습니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "anomaly",
+      "warnings": [
+        "get_wx 가 같은 입력으로 2회 호출됨"
+      ]
+    },
+    "session_id": "ca01bac7a2534cbca338ce73e93db3ae",
+    "screenshots": [
+      "21_logs_F3020_repeated_call.png"
+    ],
+    "evaluation_final": {
+      "verdict": "anomaly",
+      "checks": {
+        "repeated_call": "warn",
+        "excess_replan": "ok",
+        "unplanned_call": "ok"
+      },
+      "warnings": [
+        "get_wx 가 같은 입력으로 2회 호출됨"
+      ],
+      "diagnosis": {
+        "status": "done",
+        "text": "`get_wx` 툴이 동일한 입력으로 두 번 호출된 것은 메인 Agent의 계획 또는 실행 단계에서 불필요한 중복 작업이 발생했기 때문입니다. 이 중복 호출을 제거하도록 계획 로직을 수정해야 합니다."
+      }
+    }
+  },
+  {
+    "scenario": "A2",
+    "turn": "1",
+    "request": "잠실이랑 건대 사는 둘이 토요일 오후 2시에 만날래, 이동 부담 적게",
+    "elapsed_s": 5.1,
+    "type": "answer",
+    "status": "ok",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소로 강변역, 구의역, 잠실나루역을 추천합니다. 세 역 모두 이동 부담을 줄이는 것을 최우선으로 고려했을 때 이동 시간이 짧고 편차가 적어 좋은 평가를 받았습니다. 특히 강변역은 잠실까지 5분, 건대까지 4분이 소요되어 이동 부담이 가장 적습니다. 구의역은 건대까지 3분, 잠실나루역은 잠실까지 2분이면 도착 가능합니다. 날씨는 맑을 것으로 예상되며, 추천된 역들은 모두 음식점과 카페가 많아 약속 장소로 적합합니다.",
+    "ask": null,
+    "recommendations": [
+      {
+        "rank": 1,
+        "station": "강변역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 5,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 4,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 5,
+        "gap": 1,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 122,
+          "카페": 36,
+          "문화시설": 2,
+          "관광명소": 0
+        }
+      },
+      {
+        "rank": 2,
+        "station": "구의역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 6,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 3,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 6,
+        "gap": 3,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 392,
+          "카페": 62,
+          "문화시설": 4,
+          "관광명소": 1
+        }
+      },
+      {
+        "rank": 3,
+        "station": "잠실나루역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 2,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 7,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 7,
+        "gap": 5,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 152,
+          "카페": 40,
+          "문화시설": 0,
+          "관광명소": 0
+        }
+      }
+    ],
+    "excluded": [],
+    "criteria": {
+      "t_max": 90,
+      "g_max": 30,
+      "prio": "travel",
+      "prio_label": "이동 부담 적게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "t_max",
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": 0.5,
+      "tmin": -5.4,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 90분, 편차 30분)."
+    ],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {
+      "geo_loc": 2,
+      "get_wx": 1,
+      "find_stn": 1,
+      "get_route": 16,
+      "find_spot": 12
+    },
+    "tool_failures": {
+      "find_spot:NO_RESULT": 3
+    },
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "analyze",
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "new_meet",
+        "reason": "사용자가 약속 장소 추천을 요청하며 출발 위치, 날짜, 시간, 선호도를 명시했습니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "anomaly",
+      "warnings": [
+        "계획에 없던 Tool: get_wx×1"
+      ]
+    },
+    "session_id": "01d33a499b7845b5a6e07e43985c3494",
+    "screenshots": [
+      "22_logs_F3020_unplanned_call.png"
+    ],
+    "evaluation_final": {
+      "verdict": "anomaly",
+      "checks": {
+        "repeated_call": "ok",
+        "excess_replan": "ok",
+        "unplanned_call": "warn"
+      },
+      "warnings": [
+        "계획에 없던 Tool: get_wx×1"
+      ],
+      "diagnosis": {
+        "status": "done",
+        "text": "계획에 없던 `get_wx` Tool 호출은 `find_stn` Tool이 정상 응답했으므로 불필요한 호출이었습니다. `find_spot` Tool에서 일부 카테고리에 대해 `NO_RESULT` 응답이 있었으나, 다른 카테고리에서 결과를 반환했으므로 Agent의 판단이나 Tool의 기능 자체에 문제는 없어 보입니다."
+      }
+    }
+  },
+  {
+    "scenario": "A3",
+    "turn": "1",
+    "request": "잠실이랑 건대 사는 둘이 토요일 오후 2시에 만날래, 이동 부담 적게",
+    "elapsed_s": 5.0,
+    "type": "answer",
+    "status": "ok",
+    "error_code": null,
+    "answer": "2026년 11월 21일 토요일 약속 장소로 강변역, 구의역, 잠실나루역을 추천합니다. 세 역 모두 이동 부담을 줄이는 것을 최우선으로 고려했을 때 이동 시간이 짧고 편차가 적어 좋은 평가를 받았습니다. 특히 강변역은 잠실까지 5분, 건대까지 4분이 소요되어 이동 부담이 가장 적습니다. 구의역은 건대까지 3분, 잠실나루역은 잠실까지 2분이면 도착 가능합니다. 날씨는 맑을 것으로 예상되며, 추천된 역들은 모두 음식점과 카페가 많아 약속 장소로 적합합니다.",
+    "ask": null,
+    "recommendations": [
+      {
+        "rank": 1,
+        "station": "강변역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 5,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 4,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 5,
+        "gap": 1,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 122,
+          "카페": 36,
+          "문화시설": 2,
+          "관광명소": 0
+        }
+      },
+      {
+        "rank": 2,
+        "station": "구의역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 6,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 3,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 6,
+        "gap": 3,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 392,
+          "카페": 62,
+          "문화시설": 4,
+          "관광명소": 1
+        }
+      },
+      {
+        "rank": 3,
+        "station": "잠실나루역",
+        "times": [
+          {
+            "name": "잠실",
+            "min": 2,
+            "transfers": 0,
+            "walk": false
+          },
+          {
+            "name": "건대",
+            "min": 7,
+            "transfers": 0,
+            "walk": false
+          }
+        ],
+        "max_t": 7,
+        "gap": 5,
+        "score": -9.0,
+        "spot_counts": {
+          "음식점": 152,
+          "카페": 40,
+          "문화시설": 0,
+          "관광명소": 0
+        }
+      }
+    ],
+    "excluded": [],
+    "criteria": {
+      "t_max": 90,
+      "g_max": 30,
+      "prio": "travel",
+      "prio_label": "이동 부담 적게",
+      "rain_threshold": 60,
+      "defaults_used": [
+        "t_max",
+        "g_max"
+      ]
+    },
+    "weather": {
+      "rain_pct": 0,
+      "tmax": 0.5,
+      "tmin": -5.4,
+      "rainy": false
+    },
+    "notes": [
+      "이동시간은 조회 시점 기준이며 약속 시각의 실제 운행과 다를 수 있어요.",
+      "설정하지 않은 제약은 기본값을 썼어요 (최대 이동시간 90분, 편차 30분)."
+    ],
+    "replans": 0,
+    "near_miss": null,
+    "tool_calls": {
+      "geo_loc": 2,
+      "get_wx": 1,
+      "find_stn": 1,
+      "get_route": 16,
+      "find_spot": 12
+    },
+    "tool_failures": {
+      "find_spot:NO_RESULT": 3
+    },
+    "cache_hits": 0,
+    "replan_events": [],
+    "steps": [
+      "plan",
+      "execute",
+      "judge",
+      "respond"
+    ],
+    "llm_decisions": [
+      {
+        "kind": "intent",
+        "value": "new_meet",
+        "reason": "사용자가 약속 장소 추천을 요청하며 출발 위치, 날짜, 시간, 선호도를 명시했습니다."
+      }
+    ],
+    "evaluation": {
+      "verdict": "unknown",
+      "warnings": []
+    },
+    "session_id": "d81f78920c1c472aa86b587a282f63e6",
+    "screenshots": [
+      "23_logs_F3020_unknown.png"
+    ],
+    "evaluation_final": {
+      "verdict": "unknown",
+      "checks": {
+        "repeated_call": "na",
+        "excess_replan": "na",
+        "unplanned_call": "na"
+      },
+      "warnings": [],
+      "diagnosis": {
+        "status": "skipped",
+        "text": null
+      }
+    }
+  }
+]

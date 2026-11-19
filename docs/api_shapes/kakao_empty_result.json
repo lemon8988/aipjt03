@@ -1,0 +1,22 @@
+{
+  "http": 200,
+  "shape": {
+    "documents": {
+      "_list_len": 0,
+      "_item": null
+    },
+    "meta": {
+      "is_end": true,
+      "pageable_count": 0,
+      "same_name": {
+        "keyword": "str",
+        "region": {
+          "_list_len": 0,
+          "_item": null
+        },
+        "selected_region": "str"
+      },
+      "total_count": 0
+    }
+  }
+}
