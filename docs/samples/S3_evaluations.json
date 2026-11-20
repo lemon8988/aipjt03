@@ -25,18 +25,18 @@
       "unplanned_call": "ok"
     },
     "stats": {
-      "tool_calls": 11,
+      "tool_calls": 10,
       "replans": 3,
-      "total_ms": 5945,
-      "event_count": 73
+      "total_ms": 12501,
+      "event_count": 69
     },
     "diagnosis": {
       "status": "done",
-      "text": "Agent는 재계획 상한에 도달하여 실행을 종료했습니다. `find_stn` Tool에서 수원과 춘천 간의 거리가 멀어 사용자가 제시한 조건(반경, 후보 수)을 만족하는 장소를 찾지 못했습니다. 사용자의 이동 시간 및 편차 제약 조건을 현실적으로 충족시키기 어려운 경우이므로, 사용자의 조건을 재확인하거나 완화해야 합니다."
+      "text": "문제는 메인 Agent의 판단 과정에서 발생했습니다. 사용자가 요청한 약속에 대한 후보가 전혀 충족되지 않아 재계획이 상한에 도달했습니다. 사용자의 이동시간 및 편차 제약을 재검토하여 현실적으로 충족 가능한 조건으로 수정해야 합니다."
     },
-    "session_id": "b4181aa41d5a4e94a20af38541d6504f",
+    "session_id": "252d50296c3e482b8ef5341a851aa0c4",
     "run_index": 1,
-    "evaluated_at": "2026-11-19T15:56:21+00:00"
+    "evaluated_at": "2026-11-20T05:42:38+00:00"
   },
   {
     "verdict": "ok",
@@ -49,17 +49,17 @@
       "unplanned_call": "ok"
     },
     "stats": {
-      "tool_calls": 9,
+      "tool_calls": 10,
       "replans": 1,
-      "total_ms": 2020,
-      "event_count": 45
+      "total_ms": 8077,
+      "event_count": 46
     },
     "diagnosis": {
       "status": "skipped",
       "text": null
     },
-    "session_id": "b4181aa41d5a4e94a20af38541d6504f",
+    "session_id": "252d50296c3e482b8ef5341a851aa0c4",
     "run_index": 2,
-    "evaluated_at": "2026-11-19T15:56:26+00:00"
+    "evaluated_at": "2026-11-20T05:42:47+00:00"
   }
 ]

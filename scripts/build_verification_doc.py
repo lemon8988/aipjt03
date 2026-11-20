@@ -242,7 +242,10 @@ def main() -> None:
     A(img("06_chat_S3_limit.png", "재계획 상한 도달, 사유와 완화 버튼") + "\n")
     A("### 후속 요청에서 바뀐 조건만 갱신 (F3010)\n")
     s6 = rec("S6")
-    A(f"\"{s6['request']}\" → Tool 호출 **{sum(s6['tool_calls'].values())}회**, 캐시 재사용 {s6['cache_hits']}건, 우선순위가 `{s6['criteria']['prio_label']}` 로만 바뀌고 위치(잠실·건대)·날짜는 유지됐다.\n")
+    A(f"\"{s6['request']}\" → Tool 호출 **{sum(s6['tool_calls'].values())}회**, 캐시 재사용 {s6['cache_hits']}건, 위치(잠실·건대)·날짜·시각은 유지됐다. "
+      f"다만 GPT 첫 실행에서는 우선순위가 `{s6['criteria']['prio_label']}` 로 남아 `음식점 많게` 로 갱신되지 않았다(아래 화면은 이 수정 전 실행). "
+      "원인은 분석 단계에서 모델이 우선순위를 비운 것이라 분석 프롬프트에 우선순위 표현 매핑을 추가했고(커밋 17e3847), 수정 후 같은 대화 8회 모두 `음식점 많게` 로 반영됐다. "
+      "수정 직후 카카오맵 대중교통 API 가 HTTP 400 을 반환해 수정 후 화면은 다시 찍지 못했다.\n")
     A(img("09_chat_S6_followup.png", "후속 요청: 우선순위만 갱신") + "\n")
     A("### 응답 구성 (F3011)\n")
     A("추천 항목(역), 보조 정보(주변 장소와 링크), 판단 기준(최대 이동시간·편차·우선순위·날씨), 근거 Tool 결과(실행 과정 패널), 제외 후보와 사유가 함께 표시된다 (화면 02, 07, 05b). 이 도메인은 위험 도메인이 아니므로 전문가 조언 안내는 해당 없음.\n")
@@ -322,11 +325,13 @@ def main() -> None:
     # ---------------- 4.7
     A("## 4.7 대표 시나리오 검증\n")
     A(f"대표 요청 {len({r['scenario'] for r in R if r['scenario'].startswith('S')})}개를 실행했다. 아래를 모두 포함한다: 제약을 한 번에 충족(S1) · 재계획이 필요(S2) · 상한에 도달(S3) · Tool 하나가 실패(S4) · Tool 이 필요 없음(S5). 그 밖에 후속 요청(S6), 조건 부족 되묻기(S7·S8·S10), API 키 누락(S9), 로깅 Agent 미연결(S11). 요청마다 **실행 결과(최종 응답) · 실행 로그(단계·Tool 호출 이력·재계획 여부) · 기대와 실제의 차이**를 기록했다.\n")
-    A("| 시나리오 | 요청 | 결과 | 재계획 | 소요 |\n|---|---|---|---|---|")
+    A("| 시나리오 | 요청 | 결과 | 재계획 | 소요(시나리오 전체 요청 합계) |\n|---|---|---|---|---|")
     for sc, title in (("S1", "한 번에 충족"), ("S2", "재계획 후 충족"), ("S3", "상한 도달"), ("S4", "Tool 하나 실패"), ("S5", "Tool 불필요"), ("S6", "후속 요청"), ("S7", "조건 부족"), ("S8", "우선순위 되묻기"), ("S9", "API 키 누락"), ("S10", "임의 채움 방지"), ("S11", "로깅 Agent 미연결")):
         last = [r for r in R if r["scenario"] == sc][-1]
         first = [r for r in R if r["scenario"] == sc][0]
         A(f"| {sc} {title} | {first['request']} | `{last['type']}/{last['status']}` | {sum(r['replans'] for r in R if r['scenario'] == sc)}회 | {sum(r['elapsed_s'] for r in R if r['scenario'] == sc):.1f}초 |")
+    A("\n재계획·소요는 시나리오의 모든 요청 합계다(S2·S3·S7·S8 은 되묻기·버튼 요청 포함, S3 는 상한 도달 3회 + 완화 후 재실행 1회). "
+      "S1~S3·S5~S8·S10 은 2026-11-20 배포 서버(Render 무료)·GPT 실행 기록이고, S4·S9·S11 과 F3020 주입(A1~A3)은 환경변수 주입이 필요해 같은 날 로컬(LLM=Gemini)에서 실행한 기록이다.\n")
     A("")
     A(scenario_block("S1", "제약을 한 번에 충족", "재계획 없이 충족하는 후보 3곳을 판단 근거와 함께 추천, 실행 과정 표시.",
                      "**없음.** 기대대로 동작했다.", [("02_chat_S1_result.png", "S1 화면")], ["1"]))
@@ -341,7 +346,7 @@ def main() -> None:
     A(scenario_block("S5", "Tool 이 필요 없는 요청", "계획 단계를 건너뛰고 Tool 호출 없이 바로 응답한다.",
                      "**없음.** 실행 단계가 분석→응답뿐이고 Tool 호출 0회.", [("08_chat_S5_no_tool.png", "S5 화면")], ["1", "2"]))
     A(scenario_block("S6", "후속 요청 (Memory)", "위치·날짜·시각은 유지하고 우선순위만 갱신, 이미 조회한 이동시간은 다시 부르지 않는다.",
-                     "**없음.**", [("09_chat_S6_followup.png", "S6 화면")], ["1"]))
+                     "**있음(GPT 실행에서 발견, 프롬프트 수정 완료).** 첫 실행에서 우선순위가 갱신되지 않았다(위 4.2 F3010 설명). 수정 후 8회 반복에서 모두 `음식점 많게` 로 반영됨을 확인했으나, 카카오맵 대중교통 API 의 일시 오류로 수정 후 최종 화면은 재촬영하지 못했다.", [("09_chat_S6_followup.png", "S6 화면(수정 전 실행)")], ["1"]))
     A(scenario_block("S7", "조건 부족 → 되묻기 → 답변", "날짜·시작 시각이 없으면 Tool 호출 전에 되묻고, 답변을 받으면 이어서 처리한다.",
                      "**없음.**", [("10_chat_S7_missing.png", "되묻기"), ("10b_chat_S7_answered.png", "답변 후 추천")], ["1", "2"]))
     A(scenario_block("S8", "우선순위 되묻기(선택 버튼)", "우선순위가 없으면 선택 버튼으로 되묻고, 버튼 선택은 LLM 없이 처리한다.",
@@ -377,7 +382,7 @@ def main() -> None:
     A("| NF3002 | 화면에 API 키와 오류 상세가 노출되지 않는가 | ✔ 키 누락 화면(S9)은 안내문만 표시, `/api/health` 는 설정 여부만 반환, 처리되지 않은 예외는 `INTERNAL` 로만 응답 (테스트 `test_unhandled_error_hides_details`, `test_health_reports_presence_not_values`, `test_chat_endpoint_returns_answer_and_timeline` 에서 키 값 미노출) |")
     A("| NF3003 | Tool 호출이 실패해도 서비스가 중단되지 않는가 | ✔ S4 (get_route 4회 실패에도 추천 완료), 테스트 `test_unexpected_exception_is_converted` |")
     A("| NF3004 | 재계획 상한이 적용되어 무한 반복이 없는가 | ✔ S3 에서 재계획 3회 후 중단, `MAX_REPLAN` 설정 테스트 |")
-    A(f"| NF3005 | 대표 요청의 처리 시간이 사용에 지장이 없는가 | ✔ Tool 을 호출하는 요청 {len(times)}건: **중앙값 {p50:.1f}초, 최대 {mx:.1f}초** (LLM 호출 2회 포함, 병렬 호출). 가장 오래 걸린 요청은 {slowest['scenario']}(`{slowest['request'][:24]}…`){' — `get_route` 를 직렬(`ROUTE_WORKERS=1`)로 실행하고 실패를 주입한 경우' if slowest['scenario'] == 'S4' else ''} |")
+    A(f"| NF3005 | 대표 요청의 처리 시간이 사용에 지장이 없는가 | ✔ Tool 을 호출하는 요청 {len(times)}건: **중앙값 {p50:.1f}초, 최대 {mx:.1f}초** (LLM 호출 2회 포함, 병렬 호출, 배포 서버(Render 무료)·GPT 기준이며 같은 조건의 로컬 측정은 중앙값 4.3초·최대 6.3초). 가장 오래 걸린 요청은{slowest['scenario']}(`{slowest['request'][:24]}…`){' — `get_route` 를 직렬(`ROUTE_WORKERS=1`)로 실행하고 실패를 주입한 경우' if slowest['scenario'] == 'S4' else ''} |")
     A("| NF3006 | 프론트엔드·백엔드 분리, Agent·Tool 코드가 파일로 분리되어 있는가 | ✔ `frontend/`(HTML/CSS/JS)와 `backend/`(FastAPI)가 별도 프로세스(포트 5500/8000), `agent/`·`tools/`·`events/`·`store/`·`api/` 파일 분리 |")
     A("| NF3007 | 외부 API 출처와 이용 조건(호출 한도·약관)을 기록했는가 | ✔ [01_요구사항정의서.md](01_요구사항정의서.md) 1.2 와 README 에 기록 (카카오 응답 비저장, Open-Meteo CC BY 4.0 출처 표기) |\n")
 
@@ -389,7 +394,7 @@ def main() -> None:
     A(f"| 증명을 위한 스크린샷과 실행 로그 항목을 모두 첨부했다 | ✔ 스크린샷 {len(list((DOCS / 'screenshots').glob('*.png')))}장, 실행 로그 샘플(JSONL·표) |")
     A("| 요구사항 정의서 · Agent 설계 문서 · Tool 정의서 · API 명세서 · 구현 소스코드 · 실행 로그 샘플 · README.md 를 모두 포함했다 | ✔ `docs/01~05`, `backend/`·`frontend/`, `docs/samples/`, `README.md` |")
     A("| 대표 요청 1건의 전체 실행 로그, 재계획 사례를 포함했다 | ✔ [S1 전체 로그](samples/S1_full_run_log.md), [S2 재계획 로그](samples/S2_replan_run_log.md) |")
-    A("| 3일차 오후에 제공되는 **셀프 체크리스트**로 점검을 마쳤다 | ⚠ **미완료** — 공식 양식을 아직 받지 못해 작성하지 못했다. 양식을 받으면 [06_셀프체크리스트.md](06_셀프체크리스트.md) 에 채워 넣어야 한다 |")
+    A("| 3일차 오후에 제공되는 **셀프 체크리스트**로 점검을 마쳤다 | ✔ [셀프체크리스트.xlsx](셀프체크리스트.xlsx) (통과 26 · 해당없음 5 · 미확인 1 · 실패 0, 증빙 스크린샷 삽입), 요약은 [06_셀프체크리스트.md](06_셀프체크리스트.md) |")
     A("")
     A("## 5. 스크린샷 목록\n")
     A("| 파일 | 내용 | 관련 항목 |\n|---|---|---|")
