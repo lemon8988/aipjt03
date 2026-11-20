@@ -110,3 +110,15 @@ def test_failure_is_logged_without_key_and_not_exposed(gpt, caplog):
             LLMClient().compose({})
     assert "status=429" in caplog.text and "gpt-4o-mini" in caplog.text and "test-llm" not in caplog.text
     assert "secret" not in e.value.message
+
+
+@pytest.mark.parametrize("raw", [
+    "https://gms.ssafy.io/gmsapi/api.openai.com/v1/chat/completions",
+    "https://gms.ssafy.io/gmsapi/api.openai.com/v1/chat/completions/",
+    "https://gms.ssafy.io/gmsapi/api.openai.com/v1/",
+    "https://gms.ssafy.io/gmsapi/api.openai.com/v1",
+])
+def test_base_url_is_normalized_to_v1(gpt, monkeypatch, raw):
+    monkeypatch.setenv("LLM_BASE_URL", raw)
+    LLMClient().compose({})
+    assert gpt.inits[0]["base_url"] == "https://gms.ssafy.io/gmsapi/api.openai.com/v1"

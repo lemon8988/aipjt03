@@ -18,6 +18,15 @@ def _int(name: str, default: int) -> int:
         return default
 
 
+def _base_url(raw: str | None) -> str:
+    """OpenAI 호환 base URL. 전체 엔드포인트(…/chat/completions)나 끝의 '/' 를 넣어도 …/v1 로 정리한다."""
+    url = (raw or "").strip().rstrip("/") or "https://api.openai.com/v1"
+    for tail in ("/chat/completions", "/completions"):
+        if url.endswith(tail):
+            url = url[: -len(tail)]
+    return url.rstrip("/")
+
+
 @dataclass(frozen=True)
 class Settings:
     kakao_key: str
@@ -52,7 +61,7 @@ def settings() -> Settings:
     return Settings(
         kakao_key=os.getenv("KAKAO_REST_KEY", "").strip(),
         llm_key=os.getenv("LLM_API_KEY", "").strip(),
-        llm_base_url=(os.getenv("LLM_BASE_URL") or "https://api.openai.com/v1").strip(),
+        llm_base_url=_base_url(os.getenv("LLM_BASE_URL")),
         llm_model=(os.getenv("LLM_MODEL") or "gpt-4o-mini").strip(),
         route_provider=os.getenv("ROUTE_PROVIDER", "kakao").strip().lower(),
         fail_inject=os.getenv("FAIL_INJECT", "").strip(),
