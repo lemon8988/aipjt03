@@ -3,15 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#5b6cff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E📍%3C/text%3E%3C/svg%3E">
   <title>약속 장소 플래너</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="top"><h1>약속 장소 플래너</h1><div id="nav"></div></header>
+  <header class="top"><a class="brand" href="index.html"><span class="logo">📍</span><div><h1>약속 장소 플래너</h1><small>AI Agent가 찾아주는 만남 장소</small></div></a><div id="nav"></div></header>
   <div id="banners"></div>
-  <main class="chat-layout">
+  <main>
+    <section class="hero">
+      <h2>모두에게 <span>공평한 만남 장소</span>를 찾아드려요</h2>
+      <p>위치와 날짜·시작 시각만 알려 주세요. 이동 부담이 가장 적은 역과 주변 장소를 추천해요.</p>
+      <div class="steps"><span class="pill"><i>📍</i> 위치 해석</span><span class="pill"><i>🚇</i> 이동시간 비교</span><span class="pill"><i>☔</i> 날씨 확인</span><span class="pill"><i>🍽️</i> 주변 장소 추천</span><span class="pill"><i>🗓️</i> 계획 저장</span></div>
+    </section>
+    <div class="chat-layout">
     <section class="panel">
       <div id="messages" aria-live="polite"></div>
+      <div class="examples" id="examples"></div>
       <form class="composer" id="form">
         <input id="input" maxlength="500" autocomplete="off" placeholder="예) 잠실이랑 건대 사는 둘이 토요일 오후 2시에 데이트, 할 거 많은 곳으로">
         <button id="send" type="submit">보내기</button>
@@ -21,9 +30,11 @@
       <h2>실행 과정</h2>
       <div id="trace" class="meta">요청을 보내면 단계와 Tool 호출 이력이 여기에 표시돼요.</div>
     </aside>
+    </div>
   </main>
   <script src="config.js"></script>
   <script src="common.js"></script>
   <script src="chat.js"></script>
+  <footer class="foot">약속 장소 플래너 · SSAFY AI 코어 프로젝트 · 카카오 로컬 · Open-Meteo 데이터 사용</footer>
 </body>
 </html>

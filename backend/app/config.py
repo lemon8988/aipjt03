@@ -30,6 +30,7 @@ class Settings:
     anomaly_inject: str
     disable_logging: bool
     data_dir: Path
+    cors_origins: tuple[str, ...]  # 프론트엔드(Netlify 등) 주소. 쉼표로 구분
     # 제약·판단 기본값
     t_max: int
     g_max: int
@@ -60,6 +61,7 @@ def settings() -> Settings:
         anomaly_inject=os.getenv("ANOMALY_INJECT", "").strip().lower(),
         disable_logging=os.getenv("DISABLE_LOGGING_AGENT", "0") == "1",
         data_dir=data_dir,
+        cors_origins=tuple(o.strip().rstrip("/") for o in os.getenv("CORS_ORIGINS", "").split(",") if o.strip()),
         t_max=_int("T_MAX", 90),
         g_max=_int("G_MAX", 30),
         rain_threshold=_int("RAIN_THRESHOLD", 60),

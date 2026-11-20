@@ -47,6 +47,11 @@ class RunCtx:
     fatal: dict | None = None
 
 
+def _final(type_: str, status: str, answer: str, *, ask=None, result=None, error_code=None) -> dict:
+    """응답 payload 한 곳에서 만든다 (키 구성이 항상 같도록)."""
+    return {"type": type_, "status": status, "error_code": error_code, "ask": ask, "result": result, "answer": answer}
+
+
 class AgentState(TypedDict, total=False):
     session_id: str
     message: str
@@ -153,8 +158,7 @@ class MainAgent:
             intent = out.get("intent")
         except Exception:  # noqa: BLE001
             log.exception("graph failed")
-            payload = {"type": "error", "status": "error", "error_code": "INTERNAL",
-                       "answer": ERROR_MESSAGES["INTERNAL"], "ask": None, "result": None}
+            payload = _final("error", "error", ERROR_MESSAGES["INTERNAL"], error_code="INTERNAL")
             intent = None
         mem.turns += 1
         mem.pending = ({"kind": payload["ask"]["kind"], "intent": intent if intent in ("new_meet", "edit_cond") else "new_meet"}
@@ -424,27 +428,23 @@ class MainAgent:
 
     # ---- 응답
     def n_respond(self, state: AgentState) -> dict:
-        mem, slots = state["memory"], state["slots"]
+        mem = state["memory"]
         fatal, ask, intent = state.get("fatal"), state.get("ask"), state.get("intent")
         if fatal:
             code = fatal["code"]
-            final = {"type": "error", "status": "error", "error_code": code, "ask": None, "result": None,
-                     "answer": ERROR_MESSAGES.get(code, ERROR_MESSAGES["INTERNAL"])}
+            final = _final("error", "error", ERROR_MESSAGES.get(code, ERROR_MESSAGES["INTERNAL"]), error_code=code)
         elif ask:
-            final = {"type": "ask", "status": "ask", "error_code": None, "ask": ask, "result": None,
-                     "answer": ask["message"]}
+            final = _final("ask", "ask", ask["message"], ask=ask)
         elif intent == "chat":
             try:
                 answer = self.llm.chat_reply(state["message"])
             except LLMError:
                 answer = USAGE_TEXT
-            final = {"type": "answer", "status": "chat", "error_code": None, "ask": None, "result": None,
-                     "answer": answer}
+            final = _final("answer", "chat", answer)
         elif intent == "save_plan":
             answer = ("추천 카드의 '이 장소로 저장' 버튼을 눌러 계획을 저장해 주세요." if mem.summary
                       else "저장할 추천 결과가 아직 없어요. 먼저 약속 장소를 추천받아 보세요.")
-            final = {"type": "answer", "status": "chat", "error_code": None, "ask": None, "result": None,
-                     "answer": answer}
+            final = _final("answer", "chat", answer)
         else:
             final = self._respond_result(state)
         return {"final": final, "_end": {"response_type": final["type"], "status": final["status"]}}
@@ -513,18 +513,17 @@ class MainAgent:
             answer = self.llm.compose(facts)
         except LLMError:
             answer = self._template(facts)
-        return {"type": "ask" if ask else "answer", "status": status, "error_code": None,
-                "ask": ask, "result": result, "answer": answer}
+        return _final("ask" if ask else "answer", status, answer, ask=ask, result=result)
 
     @staticmethod
     def _template(f: dict) -> str:
         """LLM 없이도 같은 사실을 전달하는 대체 문장."""
         c = f["criteria"]
         if f["status"] == "ok":
-            lines = [f"{f['date_note']} 기준 추천이에요. (우선순위: {c['prio_label']})"]
+            lines = [f"📍 추천 · {f['date_note']} (우선순위: {c['prio_label']})"]
             for r in f["recommendations"]:
-                t = ", ".join(f"{x['name']} {x['min']}분" for x in r["times"])
-                lines.append(f"{r['rank']}. {r['station']}: {t} (최대 {r['max_t']}분, 편차 {r['gap']}분)")
+                t = " · ".join(f"{x['name']} {x['min']}분" for x in r["times"])
+                lines.append(f"- {r['rank']}위 {r['station']}: {t} (최대 {r['max_t']}분, 편차 {r['gap']}분)")
             return "\n".join(lines)
         if f["status"] == "limit" and f.get("no_station"):
             return f"재계획을 {f['replans']}회 했지만 두 지역 중간 지점 주변에 지하철역이 없어 후보를 찾지 못했어요. 서로 더 가까운 위치를 알려 주세요."

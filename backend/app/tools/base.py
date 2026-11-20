@@ -7,12 +7,6 @@ from typing import Any, Callable
 
 from app.config import settings
 
-ERROR_CODES = {
-    "NO_KEY", "BAD_INPUT", "NO_RESULT", "NO_ROUTE", "AMBIGUOUS",
-    "OUT_OF_RANGE", "RATE_LIMIT", "API_ERROR", "TIMEOUT",
-}
-
-
 class ToolError(Exception):
     """Tool 내부에서 던지면 call_tool 이 실패 응답으로 바꾼다. 밖으로는 나가지 않는다."""
 

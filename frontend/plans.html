@@ -3,11 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#5b6cff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E📍%3C/text%3E%3C/svg%3E">
   <title>계획 관리 · 약속 장소 플래너</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="top"><h1>약속 장소 플래너</h1><div id="nav"></div></header>
+  <header class="top"><a class="brand" href="index.html"><span class="logo">📍</span><div><h1>약속 장소 플래너</h1><small>AI Agent가 찾아주는 만남 장소</small></div></a><div id="nav"></div></header>
   <div id="banners"></div>
   <main>
     <div class="toolbar"><button class="ghost" id="reload">새로고침</button><span id="status" class="meta"></span></div>
@@ -17,5 +19,6 @@
   <script src="config.js"></script>
   <script src="common.js"></script>
   <script src="plans.js"></script>
+  <footer class="foot">약속 장소 플래너 · SSAFY AI 코어 프로젝트 · 카카오 로컬 · Open-Meteo 데이터 사용</footer>
 </body>
 </html>

@@ -192,3 +192,14 @@ function renderTrace(timeline) {
   }
   finish();
 }
+
+// ---------------------------------------------------------------- 예시 질문 (클릭하면 입력창에 채움)
+const EXAMPLES = [
+  "잠실이랑 건대 사는 둘이 토요일 오후 2시에 데이트, 할 거 많은 곳으로",
+  "송도랑 마석에서 모일 장소 추천해줘",
+  "같은 조건에서 음식점 많은 쪽으로",
+];
+const $examples = document.getElementById("examples");
+for (const t of EXAMPLES) {
+  $examples.append(el("button", { type: "button", text: t.length > 22 ? t.slice(0, 22) + "…" : t, title: t, onclick: () => { $input.value = t; $input.focus(); } }));
+}
