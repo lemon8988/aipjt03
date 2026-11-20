@@ -68,7 +68,7 @@ ANALYZE_SYSTEM = """당신은 약속 장소 플래너의 요청 분석기입니�
 - intent: new_meet(새 약속 추천 요청), edit_cond(직전 조건 일부 변경/추가 정보 제공), save_plan(저장 요청), chat(인사·사용법·잡담).
 - 메시지에 없는 값은 반드시 null. 추측하거나 기본값을 채우지 마세요.
 - locs: 참여자들의 출발 위치 이름 목록(사용자가 말한 표현 그대로, 예 ["잠실","건대"]). 언급이 없으면 null.
-- date: 메시지에 날짜·요일·상대 표현(오늘/내일/모레/이번 주 토요일 등)이 **있을 때만** YYYY-MM-DD 로. 없으면 반드시 null (오늘 날짜를 기본값으로 쓰지 마세요). 요일만 있으면 오늘 이후 가장 가까운 해당 요일(오늘 포함).
+- date: 메시지에 날짜·요일·상대 표현(오늘/내일/모레/이번 주 토요일 등)이 **있을 때만** YYYY-MM-DD 로. 없으면 반드시 null (오늘 날짜를 기본값으로 쓰지 마세요). 요일·상대 표현은 직접 계산하지 말고 사용자 메시지의 "날짜표"에서 찾아 쓰세요. 요일만 있으면 날짜표에서 오늘 이후 가장 가까운 해당 요일(오늘 포함).
 - start/end: 메시지에 시각이 있을 때만 24시간제 HH:MM. "7시 전에 끝나야 해"는 end=19:00 이고 start 는 null.
 - prio: travel(이동 부담 적게), things(할 거 많게), food(음식점 많게) 중 사용자가 밝힌 것. 없으면 null.
 - t_max/g_max: 사용자가 직접 말한 최대 이동시간(분)/참여자 간 이동시간 편차 상한(분). 없으면 null.
@@ -102,6 +102,16 @@ def _extract_json(text: str) -> dict:
         return json.loads(m.group(0))
     except ValueError:
         raise LLMError("BAD_OUTPUT", "LLM 응답 JSON 형식이 올바르지 않습니다.") from None
+
+
+_WEEKDAYS = "월화수목금토일"
+
+
+def _calendar(today: str, days: int = 14) -> str:
+    """오늘부터 days 일의 '날짜 (요일)' 표. 요일→날짜 변환을 모델의 계산에 맡기지 않기 위해 프롬프트에 넣는다."""
+    from datetime import date, timedelta
+    d0 = date.fromisoformat(today)
+    return "\n".join(f"{(d0 + timedelta(i)).isoformat()} ({_WEEKDAYS[(d0 + timedelta(i)).weekday()]})" for i in range(days))
 
 
 _DATE_HINT = re.compile(r"오늘|당일|금일|지금|\d+\s*월|\d+\s*일|\d+\s*/\s*\d+|\d{4}-\d{2}-\d{2}")
@@ -144,7 +154,8 @@ class LLMClient:
             raise LLMError("LLM_ERROR", "LLM 호출에 실패했습니다.") from e
 
     def analyze(self, message: str, context: dict, today: str, weekday: str) -> Analysis:
-        user = (f"오늘: {today} ({weekday}요일, KST)\ncontext: {json.dumps(context, ensure_ascii=False)}\n"
+        user = (f"오늘: {today} ({weekday}요일, KST)\n날짜표(오늘부터 14일):\n{_calendar(today)}\n"
+                f"context: {json.dumps(context, ensure_ascii=False)}\n"
                 f"사용자 메시지: {message}")
         text = self._chat(ANALYZE_SYSTEM, user, json_mode=True)
         try:
