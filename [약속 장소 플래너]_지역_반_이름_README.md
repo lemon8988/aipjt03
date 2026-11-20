@@ -221,7 +221,7 @@ graph TD;
 
 | 주체 | 호출하는 조건 | 호출하지 않는 조건 |
 |---|---|---|
-| 메인 Agent 분석 | 사용자 메시지를 받을 때 (GMS 경유 `gemini-2.5-flash-lite`, 온도 0, JSON 출력) | 선택 버튼 응답 |
+| 메인 Agent 분석 | 사용자 메시지를 받을 때 (GPT `gpt-4o-mini`, OpenAI 호환 Chat Completions, 온도 0, JSON 출력) | 선택 버튼 응답 |
 | 메인 Agent 응답 | 추천/상한 도달 요약 문장, 인사·사용법 답변 (실패하면 템플릿 문장) | 되묻기, 오류 안내(고정 문구) |
 | 계획·실행·판단 | 호출하지 않음 | 항상 |
 | 로깅 Agent 수집·저장·판정 | 호출하지 않음 | 항상 |
@@ -265,14 +265,14 @@ graph TD;
 | 카카오 로컬 | [카카오 개발자 문서](https://developers.kakao.com/docs/latest/ko/local/dev-guide) | 위치 해석, 후보 역, 주변 장소 | 호출 한도: 앱 설정 기준 전체 API 3,000,000건. **응답 저장 금지** → 실시간 호출만 하고 저장하는 것은 사용자가 확정한 이름·시각뿐(좌표·주소·URL 미저장) |
 | 카카오맵 대중교통 경로 조회 | [카카오맵 REST API](https://developers.kakao.com/docs/ko/kakaomap/rest-api) | 참여자→후보 역 이동시간 | 같은 REST API 키·한도. 응답 저장 금지(보수적으로 해석). 출발 시각을 지정할 수 없어 **조회 시점 기준**. 요청 1건에 약 16회 호출 |
 | Open-Meteo | [open-meteo.com](https://open-meteo.com/en/docs) | 약속 날짜 강수확률·기온 | 키 불필요, **비상업 무료, CC BY 4.0**(응답 `meta.notes` 에 출처 표기). 예보는 오늘+14일까지만 사용 |
-| LLM (GMS 경유 Gemini) | [SSAFY GMS](https://gms.ssafy.io/web/) | 요청 분석·응답 문장·이상 진단 | 교육용 GMS 키(환경변수). 키는 소스·제출물에 포함하지 않음 |
+| LLM (GPT, OpenAI 호환) | [SSAFY GMS](https://gms.ssafy.io/web/) · [OpenAI API](https://platform.openai.com/docs) | 요청 분석·응답 문장·이상 진단 | GMS 교육용 키 또는 OpenAI 키(환경변수). 키는 소스·제출물에 포함하지 않음 |
 
 ### API 키 발급 및 설정 절차 요약
 
 | 키 | 발급 | 설정 (환경변수) |
 |---|---|---|
 | 카카오 REST API 키 | [developers.kakao.com](https://developers.kakao.com) → 애플리케이션 생성(**앱은 1개만**) → 앱 키의 REST API 키 → 카카오맵·로컬 API **활성화** | `KAKAO_REST_KEY` |
-| LLM 키 | SSAFY GMS 발급 키 | `LLM_API_KEY`, `LLM_PROVIDER=gemini`, `LLM_BASE_URL=https://gms.ssafy.io/gmsapi/generativelanguage.googleapis.com/v1beta`, `LLM_MODEL=gemini-2.5-flash-lite` |
+| LLM 키 | SSAFY GMS 발급 키 (또는 OpenAI 키) | `LLM_API_KEY`, `LLM_MODEL=gpt-4o-mini`, `LLM_BASE_URL`(GMS가 안내하는 OpenAI 호환 주소 `…/v1`. 비우면 `https://api.openai.com/v1`) |
 | Open-Meteo | 키 불필요 | - |
 | (배포) 프론트 주소 | Netlify 에 배포한 주소 | 백엔드 `CORS_ORIGINS` |
 
@@ -446,7 +446,7 @@ graph TD;
 | 카카오 로컬 결과 없음 | `documents: []` → `NO_RESULT` |
 | 카카오맵 대중교통 | 첫 호출 HTTP 400(`origin/destination` 가정이 틀림) → `start_x, start_y, end_x, end_y` 로 수정. `totalTime` 은 **초** |
 | Open-Meteo | `daily.precipitation_probability_max`, `temperature_2m_max/min` |
-| LLM (GMS) | OpenAI 경로는 HTTP 429(업스트림 한도) → Gemini 경로로 전환해 정상. Tool 명세만 보고 올바른 Tool 선택 확인 |
+| LLM (GPT) | OpenAI 호환 경로로 단순 호출과 Tool 선택을 확인 (`scripts/check_apis.py --llm`). GPT 로 전환한 뒤의 실제 호출 결과는 배포 후 갱신 |
 
 ### 8.2 설계 변경 (검증·구현·실제 호출에서 발견)
 
@@ -461,7 +461,7 @@ graph TD;
 | 7 | 강수 시 야외 제외 기준 없음 | `관광명소` 일괄 제외 + 근거 표기 | 카카오 카테고리에 실내외 구분 없음 |
 | 8 | LLM 이 날짜 없는데 오늘 날짜를 채움 | 프롬프트 강화 + 코드 가드(`drop_unsupported_today`) | "잠실에서 7시 전에 끝나야 해" 검증 |
 | 9 | 점수 동점 시 순서 불안정 | 이동시간 합 → 최대 이동시간 순 정렬 | 실제 결과에서 동점 3곳 발생 |
-| 10 | LLM: GMS OpenAI 경로 | GMS 경유 Gemini | HTTP 429 |
+| 10 | LLM: GMS 경유 Gemini | GPT(`gpt-4o-mini`, OpenAI 호환 경로)로 통일, Gemini 전용 코드 제거 | 명세서 필수 라이브러리(langchain-openai·openai) 기준 |
 | 11 | 로그 시각 UTC 그대로 표시 | 화면에서 한국 시각으로 변환 | 스크린샷 검증 중 9시간 어긋남 발견 |
 | 12 | 시나리오: "송도+마석" 재계획, "서울+부산" 상한 | "중앙+건대"(재계획 1회), "수원+춘천"(상한)으로 교체 | 실제 호출 시 송도+마석은 재계획 없이 충족, 서울+부산은 중간 지점에 역이 없음 |
 

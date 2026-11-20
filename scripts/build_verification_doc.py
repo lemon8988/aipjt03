@@ -195,7 +195,7 @@ def main() -> None:
     L: list[str] = []
     A = L.append
     A("# 검증 결과\n")
-    A("명세서 4장의 확인 항목을 **실제 서버·실제 외부 API(카카오 로컬·카카오맵 대중교통·Open-Meteo)·실제 LLM(GMS 경유 Gemini)** 으로 실행해 확인한 결과다. 단위·통합 테스트(가짜 외부 API 사용) " + pytest_count() + "개도 통과했다 ([verification/pytest_output.txt](verification/pytest_output.txt)).\n")
+    A("명세서 4장의 확인 항목을 **실제 서버·실제 외부 API(카카오 로컬·카카오맵 대중교통·Open-Meteo)·실제 LLM(Gemini — 이후 GPT 로 전환, 재실행 필요)** 으로 실행해 확인한 결과다. 단위·통합 테스트(가짜 외부 API 사용) " + pytest_count() + "개도 통과했다 ([verification/pytest_output.txt](verification/pytest_output.txt)).\n")
     A("| 항목 | 내용 |\n|---|---|")
     A("| 검증 방법 | `scripts/capture_evidence.py` 가 서버를 상황별로(정상 / Tool 실패 주입 / 카카오 키 없음 / 로깅 Agent 끔) 띄우고 Chrome 으로 화면을 조작해 스크린샷·기록을 저장 |")
     A("| 실행 기준일 | 2026-11-20 (약속 날짜는 \"토요일\" → 2026-11-21) |")
@@ -362,7 +362,7 @@ def main() -> None:
         ("결과 0건(`NO_RESULT`)이 화면에서 실패처럼 보임", "표시 문구 구분 없음", "\"결과 없음\"으로 표기"),
         ("로그·계획 시각이 9시간 어긋나 보임", "서버 UTC 시각을 변환 없이 표시", "화면에서 한국 시각으로 변환"),
         ("이상 진단이 사용자 조건 문제를 Agent 결함으로 결론", "진단 프롬프트에 구분 기준이 없었음", "구분 기준 추가, 실제 재진단으로 확인"),
-        ("GMS OpenAI 경로 호출이 429", "업스트림 조직 한도 초과(전 모델 동일, 사용자 크레딧과 무관)", "GMS 경유 Gemini 로 전환 (`LLM_PROVIDER=gemini`)"),
+        ("LLM 을 Gemini 로 실행해 검증", "명세서 필수 라이브러리는 langchain-openai·openai", "GPT(`gpt-4o-mini`, OpenAI 호환)로 통일, Gemini 전용 코드 제거 — 이 문서의 실행 기록은 Gemini 기준이므로 GPT 로 재실행 필요"),
     ):
         A("| " + " | ".join(row) + " |")
     A("")

@@ -10,12 +10,10 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.8
-      - key: LLM_PROVIDER
-        value: gemini
-      - key: LLM_BASE_URL
-        value: https://gms.ssafy.io/gmsapi/generativelanguage.googleapis.com/v1beta
       - key: LLM_MODEL
-        value: gemini-2.5-flash-lite
+        value: gpt-4o-mini
+      - key: LLM_BASE_URL
+        sync: false   # GMS(OpenAI 호환 …/v1) 또는 https://api.openai.com/v1 — 대시보드에서 직접 입력
       - key: KAKAO_REST_KEY
         sync: false
       - key: LLM_API_KEY

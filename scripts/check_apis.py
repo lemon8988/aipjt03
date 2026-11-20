@@ -122,18 +122,6 @@ def main():
         if not s.llm_key:
             print("  LLM_API_KEY 없음"); return
         from app.tools import openai_tools
-        if s.llm_provider == "gemini":
-            from app.agent.llm import LLMError, _gemini_text, gemini_generate, gemini_tool_declarations
-            try:
-                print("  1) 단순 호출:", _gemini_text(gemini_generate("", "한 단어로 인사해 주세요.", max_tokens=30)))
-                data = gemini_generate("", "잠실이라는 장소의 좌표를 알고 싶어요.", max_tokens=200,
-                                       tools=gemini_tool_declarations(openai_tools()))
-                parts = data["candidates"][0]["content"]["parts"]
-                calls = [(p_["functionCall"]["name"], p_["functionCall"].get("args")) for p_ in parts if "functionCall" in p_]
-                print("  2) Tool 선택:", calls or "선택 없음 (설명/모델 확인 필요)")
-            except (LLMError, KeyError, IndexError) as e:
-                print(f"  LLM 호출 실패: {getattr(e, 'message', type(e).__name__)}")
-            return
         from langchain_openai import ChatOpenAI
         m = ChatOpenAI(model=s.llm_model, api_key=s.llm_key, base_url=s.llm_base_url, temperature=0, timeout=40, max_retries=0)
         try:

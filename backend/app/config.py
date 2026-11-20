@@ -24,7 +24,6 @@ class Settings:
     llm_key: str
     llm_base_url: str
     llm_model: str
-    llm_provider: str
     route_provider: str
     fail_inject: str
     anomaly_inject: str
@@ -53,9 +52,8 @@ def settings() -> Settings:
     return Settings(
         kakao_key=os.getenv("KAKAO_REST_KEY", "").strip(),
         llm_key=os.getenv("LLM_API_KEY", "").strip(),
-        llm_base_url=os.getenv("LLM_BASE_URL", "https://api.openai.com/v1").strip(),
-        llm_model=os.getenv("LLM_MODEL", "gpt-4o-mini").strip(),
-        llm_provider=os.getenv("LLM_PROVIDER", "openai").strip().lower(),
+        llm_base_url=(os.getenv("LLM_BASE_URL") or "https://api.openai.com/v1").strip(),
+        llm_model=(os.getenv("LLM_MODEL") or "gpt-4o-mini").strip(),
         route_provider=os.getenv("ROUTE_PROVIDER", "kakao").strip().lower(),
         fail_inject=os.getenv("FAIL_INJECT", "").strip(),
         anomaly_inject=os.getenv("ANOMALY_INJECT", "").strip().lower(),

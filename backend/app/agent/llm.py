@@ -7,8 +7,6 @@ import json
 import re
 from typing import Literal
 
-import requests
-
 from pydantic import BaseModel, ValidationError, field_validator
 
 from app.config import settings
@@ -103,55 +101,6 @@ def _extract_json(text: str) -> dict:
         raise LLMError("BAD_OUTPUT", "LLM 응답 JSON 형식이 올바르지 않습니다.") from None
 
 
-def gemini_generate(system: str, user: str, *, json_mode: bool = False, max_tokens: int = 1024,
-                    tools: list | None = None, timeout: float = 40) -> dict:
-    """Gemini generateContent (GMS 경유). 키는 헤더로만 보낸다(URL·로그에 남지 않게). 원본 응답 JSON 을 돌려준다."""
-    s = settings()
-    if not s.llm_key:
-        raise LLMError("NO_KEY", "LLM_API_KEY 가 설정되지 않았습니다.")
-    url = f"{s.llm_base_url.rstrip('/')}/models/{s.llm_model}:generateContent"
-    body: dict = {"contents": [{"role": "user", "parts": [{"text": user}]}],
-                  "generationConfig": {"temperature": 0, "maxOutputTokens": max_tokens}}
-    if system:
-        body["systemInstruction"] = {"parts": [{"text": system}]}
-    if json_mode:
-        body["generationConfig"]["responseMimeType"] = "application/json"
-    if tools:
-        body["tools"] = [{"functionDeclarations": tools}]
-    try:
-        r = requests.post(url, json=body, headers={"x-goog-api-key": s.llm_key}, timeout=timeout)
-    except requests.RequestException as e:
-        raise LLMError("LLM_ERROR", "LLM 서버에 연결하지 못했습니다.") from e
-    if r.status_code in (401, 403):
-        raise LLMError("NO_KEY", "LLM API 키가 유효하지 않습니다.")
-    if r.status_code != 200:
-        raise LLMError("LLM_ERROR", f"LLM 호출에 실패했습니다. (HTTP {r.status_code})")
-    try:
-        return r.json()
-    except ValueError:
-        raise LLMError("LLM_ERROR", "LLM 응답 형식이 올바르지 않습니다.") from None
-
-
-def _gemini_text(payload: dict) -> str:
-    try:
-        parts = payload["candidates"][0]["content"]["parts"]
-        return "".join(p.get("text", "") for p in parts).strip()
-    except (KeyError, IndexError, TypeError):
-        raise LLMError("LLM_ERROR", "LLM 응답이 비어 있습니다. (안전 필터 등)") from None
-
-
-def gemini_tool_declarations(tools: list[dict]) -> list[dict]:
-    """OpenAI 형식 Tool 명세 → Gemini functionDeclarations ('default' 같은 미지원 필드 제거)."""
-    def clean(v):
-        if isinstance(v, dict):
-            return {k: clean(x) for k, x in v.items() if k != "default"}
-        if isinstance(v, list):
-            return [clean(x) for x in v]
-        return v
-    return [{"name": t["function"]["name"], "description": t["function"]["description"],
-             "parameters": clean(t["function"]["parameters"])} for t in tools]
-
-
 _DATE_HINT = re.compile(r"오늘|당일|금일|지금|\d+\s*월|\d+\s*일|\d+\s*/\s*\d+|\d{4}-\d{2}-\d{2}")
 
 
@@ -167,9 +116,8 @@ class LLMClient:
         self._model = None
 
     def _chat(self, system: str, user: str, *, json_mode: bool = False, max_tokens: int = 1024) -> str:
+        """OpenAI 호환 Chat Completions (GPT). json_mode 이면 JSON 객체 출력을 요청한다."""
         s = settings()
-        if s.llm_provider == "gemini":
-            return _gemini_text(gemini_generate(system, user, json_mode=json_mode, max_tokens=max_tokens))
         if not s.llm_key:
             raise LLMError("NO_KEY", "LLM_API_KEY 가 설정되지 않았습니다.")
         try:
@@ -177,11 +125,15 @@ class LLMClient:
                 from langchain_openai import ChatOpenAI
                 self._model = ChatOpenAI(model=s.llm_model, api_key=s.llm_key, base_url=s.llm_base_url,
                                          temperature=0, timeout=40, max_retries=1)
-            msg = self._model.invoke([("system", system), ("human", user)])
+            model = self._model.bind(response_format={"type": "json_object"}) if json_mode else self._model
+            msg = model.invoke([("system", system), ("human", user)])
             return msg.content if isinstance(msg.content, str) else json.dumps(msg.content, ensure_ascii=False)
         except LLMError:
             raise
-        except Exception as e:  # noqa: BLE001
+        except Exception as e:  # noqa: BLE001  (오류 상세·키는 노출하지 않는다)
+            code = getattr(e, "status_code", None)
+            if code in (401, 403):
+                raise LLMError("NO_KEY", "LLM API 키가 유효하지 않습니다.") from e
             raise LLMError("LLM_ERROR", "LLM 호출에 실패했습니다.") from e
 
     def analyze(self, message: str, context: dict, today: str, weekday: str) -> Analysis:
