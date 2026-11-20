@@ -101,3 +101,12 @@ def test_invalid_analysis_fields_are_dropped_not_invented(gpt):
     gpt.reply = '{"intent":"new_meet","reason":"r","locs":["잠실"," "],"date":"내일","start":"2시","t_max":1}'
     a = LLMClient().analyze("x", {}, "2026-11-19", "목")
     assert a.date is None and a.start is None and a.t_max is None and a.locs == ["잠실"]
+
+
+def test_failure_is_logged_without_key_and_not_exposed(gpt, caplog):
+    gpt.error = _HttpError(429)
+    with caplog.at_level("WARNING"):
+        with pytest.raises(LLMError) as e:
+            LLMClient().compose({})
+    assert "status=429" in caplog.text and "gpt-4o-mini" in caplog.text and "test-llm" not in caplog.text
+    assert "secret" not in e.value.message

@@ -4,12 +4,15 @@
 from __future__ import annotations
 
 import json
+import logging
 import re
 from typing import Literal
 
 from pydantic import BaseModel, ValidationError, field_validator
 
 from app.config import settings
+
+log = logging.getLogger(__name__)
 
 USAGE_TEXT = (
     "약속 장소 플래너예요. 참여자 2~4명의 위치와 날짜·시작 시각을 알려 주시면 "
@@ -132,6 +135,10 @@ class LLMClient:
             raise
         except Exception as e:  # noqa: BLE001  (오류 상세·키는 노출하지 않는다)
             code = getattr(e, "status_code", None)
+            # 원인 파악용 서버 로그 (화면에는 노출하지 않는다). 키 형태 문자열은 가린다.
+            detail = re.sub(r"(sk-|AIza|Bearer\s)\S+", r"***", str(e))[:200]
+            log.warning("LLM 호출 실패: %s status=%s model=%s base_url=%s detail=%s",
+                        type(e).__name__, code, s.llm_model, s.llm_base_url, detail)
             if code in (401, 403):
                 raise LLMError("NO_KEY", "LLM API 키가 유효하지 않습니다.") from e
             raise LLMError("LLM_ERROR", "LLM 호출에 실패했습니다.") from e
