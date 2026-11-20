@@ -122,3 +122,10 @@ def test_base_url_is_normalized_to_v1(gpt, monkeypatch, raw):
     monkeypatch.setenv("LLM_BASE_URL", raw)
     LLMClient().compose({})
     assert gpt.inits[0]["base_url"] == "https://gms.ssafy.io/gmsapi/api.openai.com/v1"
+
+
+def test_analysis_prompt_includes_calendar_for_weekday_lookup(gpt):
+    LLMClient().analyze("토요일 2시에 잠실이랑 건대", {}, "2026-11-20", "금")
+    user = gpt.calls[0]["messages"][1][1]
+    assert "2026-11-20 (금)" in user and "2026-11-21 (토)" in user and "2026-11-28 (토)" in user
+    assert "2026-12-04" not in user  # 14일까지만
