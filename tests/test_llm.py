@@ -129,3 +129,9 @@ def test_analysis_prompt_includes_calendar_for_weekday_lookup(gpt):
     user = gpt.calls[0]["messages"][1][1]
     assert "2026-11-20 (금)" in user and "2026-11-21 (토)" in user and "2026-11-28 (토)" in user
     assert "2026-12-04" not in user  # 14일까지만
+
+
+def test_analysis_prompt_maps_priority_expressions(gpt):
+    LLMClient().analyze("같은 조건에서 음식점 많은 쪽으로", {}, "2026-11-20", "금")
+    system = gpt.calls[0]["messages"][0][1]
+    assert "음식점/맛집/먹을 곳/식당 많은" in system and "→ food" in system and "prio=food" in system
