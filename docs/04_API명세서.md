@@ -153,7 +153,7 @@
   "run_index": 1, "evaluated_at": "2026-11-19T15:16:02+00:00",
   "verdict": "anomaly", "basis": true, "warning_count": 1,
   "warnings": [ { "code": "excess_replan", "severity": "warn", "message": "재계획 3회 (상한 3회 도달)",
-                  "evidence": { "replans": 3, "limit": 3, "changes": ["반경 3000m→5000m, 후보 수 8→8", "…"] } } ],
+                  "evidence": { "replans": 3, "limit": 3, "changes": ["반경 3000m→5000m, 후보 수 5→5", "…"] } } ],
   "checks": { "repeated_call": "ok", "excess_replan": "warn", "unplanned_call": "ok" },
   "stats": { "tool_calls": 11, "replans": 3, "total_ms": 9084, "event_count": 73 },
   "diagnosis": { "status": "done", "text": "(LLM 원인 진단, 세 문장 이내)" } } ] }

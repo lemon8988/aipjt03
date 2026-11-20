@@ -75,7 +75,7 @@ def settings() -> Settings:
         default_stay_h=_int("DEFAULT_STAY_H", 3),
         max_participants=_int("MAX_PARTICIPANTS", 4),
         radius_steps=(3000, 5000, 8000, 8000),
-        k_steps=(8, 8, 8, 12),
+        k_steps=(5, 5, 5, 8),
         max_replan=_int("MAX_REPLAN", 3),
         call_budget=_int("CALL_BUDGET", 100),
         wx_max_days=_int("WX_MAX_DAYS", 14),
