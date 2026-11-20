@@ -189,3 +189,25 @@ def test_fail_injection_every_nth(monkeypatch, world):
     args = {"from": {"x": 127.10, "y": 37.51}, "to": {"x": 127.07, "y": 37.54}}
     codes = [None if call_tool("get_route", args)["ok"] else "fail" for _ in range(4)]
     assert codes == [None, "fail", None, "fail"]
+
+
+def test_kakao_quota_400_is_rate_limit_not_bad_input(monkeypatch):
+    """카카오는 호출 한도 초과를 HTTP 400 으로 준다 → RATE_LIMIT(치명, 즉시 중단·재시도 안내)로 분류."""
+    import pytest
+    from app.tools import http
+    from app.tools.base import ToolError
+
+    class R:
+        def __init__(self, status, text):
+            self.status_code, self.text = status, text
+
+    body = '{"errorType":"BadRequest","message":"API limit has been exceeded.","code":-10,"msg":"API limit has been exceeded."}'
+    monkeypatch.setattr(http.requests, "get", lambda *a, **k: R(400, body))
+    with pytest.raises(ToolError) as e:
+        http.request_json("https://dapi.kakao.com/v2/routing/publictraffic", params={"x": 1})
+    assert e.value.code == "RATE_LIMIT"
+
+    monkeypatch.setattr(http.requests, "get", lambda *a, **k: R(400, '{"message":"invalid parameter"}'))
+    with pytest.raises(ToolError) as e:
+        http.request_json("https://dapi.kakao.com/v2/routing/publictraffic")
+    assert e.value.code == "BAD_INPUT"

@@ -33,6 +33,9 @@ def request_json(url: str, *, params: dict | None = None, headers: dict | None =
         # 원인 파악용 서버 로그 (키·좌표가 담긴 쿼리는 남기지 않고 경로와 응답 앞부분만)
         log.warning("외부 API 실패: HTTP %s %s body=%s", code, url.split("?")[0], " ".join((r.text or "")[:200].split()))
         if code == 400:
+            # 카카오는 호출 한도 초과도 HTTP 400 으로 준다 (body: "API limit has been exceeded.", code -10)
+            if "limit has been exceeded" in (r.text or "").lower():
+                raise ToolError("RATE_LIMIT", "외부 API 호출 한도를 초과했습니다.")
             raise ToolError("BAD_INPUT", "외부 API가 요청 형식을 거부했습니다.")
         if code in (401, 403):
             raise ToolError("NO_KEY", "API 키가 없거나 유효하지 않습니다. 키와 서비스 활성화를 확인하세요.")
